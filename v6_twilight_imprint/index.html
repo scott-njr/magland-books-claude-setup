@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magland Books — A Family Imprint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Libre+Franklin:wght@300;400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1a1411;
+            --bg-alt: #1f1915;
+            --bg-surface: #241d18;
+            --bg-elevated: #2c241d;
+            --line: rgba(242, 234, 212, 0.1);
+            --line-warm: rgba(201, 160, 82, 0.22);
+            --line-strong: rgba(201, 160, 82, 0.5);
+
+            --cream: #f2ead4;
+            --cream-soft: rgba(242, 234, 212, 0.82);
+            --cream-muted: rgba(242, 234, 212, 0.58);
+            --cream-faint: rgba(242, 234, 212, 0.32);
+
+            --sage: #8ca583;
+            --sage-deep: #5f7a5d;
+            --terra: #d48760;
+            --terra-deep: #b5704a;
+            --gold: #c9a052;
+            --gold-bright: #e0b868;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Libre Franklin', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--cream);
+            line-height: 1.7;
+            font-weight: 300;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--cream);
+            font-weight: 500;
+            line-height: 1.05;
+            letter-spacing: -0.015em;
+        }
+
+        .script {
+            font-family: 'Caveat', cursive;
+            font-weight: 600;
+        }
+
+        a { color: var(--terra); text-decoration: none; transition: all 0.25s ease; }
+        a:hover { color: var(--gold-bright); }
+
+        /* Colophon strip */
+        .colophon {
+            background: var(--bg-alt);
+            border-bottom: 1px solid var(--line);
+            padding: 10px 0;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-align: center;
+            color: var(--cream-muted);
+            font-weight: 400;
+        }
+
+        .colophon span { color: var(--gold); margin: 0 12px; }
+
+        /* Nav */
+        nav {
+            padding: 28px 56px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 60px;
+            border-bottom: 1px solid var(--line);
+            background: var(--bg);
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            background: var(--sage-deep);
+            color: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-size: 1.55rem;
+            font-style: italic;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .logo-mark::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 1px solid var(--sage);
+            border-radius: 50%;
+            opacity: 0.45;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.05;
+        }
+
+        .logo-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            color: var(--cream);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        .logo-tag {
+            font-family: 'Caveat', cursive;
+            font-size: 0.95rem;
+            color: var(--terra);
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            justify-content: center;
+            list-style: none;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .nav-links a {
+            color: var(--cream-soft);
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-right a { color: var(--cream-soft); }
+        .nav-right a:hover { color: var(--gold); }
+
+        .nav-cart {
+            background: var(--terra);
+            color: var(--bg) !important;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .nav-cart:hover {
+            background: var(--gold-bright);
+            color: var(--bg) !important;
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 120px 56px 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-ornament {
+            width: 260px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            color: var(--gold);
+        }
+
+        .hero-kicker {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(3.4rem, 7vw, 6.8rem);
+            font-weight: 400;
+            line-height: 1.02;
+            letter-spacing: -0.025em;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--sage);
+            font-weight: 400;
+        }
+
+        .hero h1 .terra {
+            color: var(--terra);
+            font-style: italic;
+        }
+
+        .hero-lede {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-style: italic;
+            color: var(--cream-soft);
+            max-width: 640px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 32px;
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 500;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid var(--gold);
+            color: var(--cream);
+            background: transparent;
+            border-radius: 999px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: var(--bg);
+            letter-spacing: 4px;
+        }
+
+        .btn-filled {
+            background: var(--terra);
+            border-color: var(--terra);
+            color: var(--bg);
+        }
+
+        .btn-filled:hover {
+            background: var(--gold-bright);
+            border-color: var(--gold-bright);
+            color: var(--bg);
+        }
+
+        /* Hero book showcase */
+        .hero-showcase {
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .showcase-glow {
+            position: absolute;
+            inset: -20% -10%;
+            background:
+                radial-gradient(ellipse at 30% 60%, rgba(140, 165, 131, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(212, 135, 96, 0.18) 0%, transparent 55%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+
+        /* Luminous book cover — the signature effect */
+        .book-3d {
+            width: 260px;
+            aspect-ratio: 3/4;
+            position: relative;
+            border-radius: 2px 8px 8px 2px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 36px 28px;
+            color: var(--cream);
+            z-index: 2;
+        }
+
+        /* Multi-layer shadow/glow system */
+        .book-3d {
+            box-shadow:
+                -4px 0 0 rgba(0, 0, 0, 0.5),
+                -8px 0 0 rgba(0, 0, 0, 0.25),
+                0 40px 80px rgba(0, 0, 0, 0.7),
+                0 0 60px rgba(201, 160, 82, 0.25),
+                0 0 120px rgba(201, 160, 82, 0.12);
+        }
+
+        .book-3d::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 18px;
+            background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
+            z-index: 1;
+        }
+
+        .book-3d::after {
+            content: '';
+            position: absolute;
+            inset: 18px;
+            border: 1px solid var(--line-strong);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .book-3d.book-sage {
+            background:
+                radial-gradient(ellipse at 50% 25%, rgba(242, 234, 212, 0.22) 0%, transparent 55%),
+                radial-gradient(circle at 50% 105%, rgba(0, 0, 0, 0.45) 0%, transparent 50%),
+                linear-gradient(180deg, #6f8c6c 0%, #3e5540 100%);
+            transform: rotate(-3deg);
+        }
+
+        .book-3d.book-terra {
+            background:
+                radial-gradient(ellipse at 50% 25%, rgba(242, 234, 212, 0.22) 0%, transparent 55%),
+                radial-gradient(circle at 50% 105%, rgba(0, 0, 0, 0.45) 0%, transparent 50%),
+                linear-gradient(180deg, #c07a4f 0%, #7a4127 100%);
+            transform: rotate(4deg) translateY(30px);
+        }
+
+        .book-top {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.66rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cream-soft);
+        }
+
+        .book-center {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .book-monogram {
+            width: 90px;
+            height: 90px;
+            border: 1px solid rgba(242, 234, 212, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--cream);
+            font-size: 2.8rem;
+            line-height: 1;
+            position: relative;
+            background: rgba(242, 234, 212, 0.05);
+        }
+
+        .book-monogram::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 1px solid rgba(242, 234, 212, 0.25);
+            border-radius: 50%;
+        }
+
+        .book-title-3d {
+            font-family: 'Fraunces', serif;
+            font-size: 1.65rem;
+            font-weight: 500;
+            line-height: 1.08;
+        }
+
+        .book-title-3d small {
+            display: block;
+            font-size: 0.95rem;
+            font-style: italic;
+            font-weight: 400;
+            margin-top: 10px;
+            color: var(--cream-soft);
+        }
+
+        .book-foot {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 1.25rem;
+            color: var(--cream-soft);
+        }
+
+        /* Section */
+        .section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 140px 56px;
+        }
+
+        .section-label {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label .handwritten {
+            font-family: 'Caveat', cursive;
+            font-size: 1.7rem;
+            color: var(--terra);
+            margin-bottom: 10px;
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        .section-label .kicker {
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .section-label h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.8rem, 5vw, 4.6rem);
+            font-weight: 400;
+        }
+
+        .section-label h2 em {
+            font-style: italic;
+            color: var(--sage);
+        }
+
+        .section-label .subtitle {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            color: var(--cream-soft);
+            margin-top: 20px;
+            font-style: italic;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 32px auto 0;
+            max-width: 300px;
+        }
+
+        .section-divider::before, .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--line-strong);
+        }
+
+        .divider-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        /* Catalog entries — V4 alternating flip-flop */
+        .catalog-entry {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+            padding: 90px 0;
+            border-bottom: 1px solid var(--line);
+            position: relative;
+        }
+
+        .catalog-entry:last-child { border-bottom: none; }
+
+        .catalog-entry:nth-child(even) {
+            grid-template-columns: 1.2fr 1fr;
+        }
+
+        .catalog-entry:nth-child(even) .catalog-cover-wrap {
+            order: 2;
+        }
+
+        .catalog-number {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .catalog-entry:nth-child(even) .catalog-number {
+            left: auto;
+            right: 0;
+        }
+
+        .catalog-cover-wrap {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .catalog-cover-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -10%;
+            background: radial-gradient(ellipse at center, rgba(201, 160, 82, 0.18) 0%, transparent 60%);
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .catalog-cover {
+            width: 360px;
+            aspect-ratio: 3/4;
+            position: relative;
+            border-radius: 2px 8px 8px 2px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 44px 34px;
+            color: var(--cream);
+            z-index: 1;
+            box-shadow:
+                -4px 0 0 rgba(0, 0, 0, 0.5),
+                -8px 0 0 rgba(0, 0, 0, 0.25),
+                0 40px 80px rgba(0, 0, 0, 0.7),
+                0 0 80px rgba(201, 160, 82, 0.2);
+        }
+
+        .catalog-cover::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 20px;
+            background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
+            z-index: 1;
+        }
+
+        .catalog-cover::after {
+            content: '';
+            position: absolute;
+            inset: 18px;
+            border: 1px solid rgba(242, 234, 212, 0.28);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .catalog-cover.cover-pirate {
+            background:
+                radial-gradient(ellipse at 50% 25%, rgba(242, 234, 212, 0.22) 0%, transparent 55%),
+                radial-gradient(circle at 50% 105%, rgba(0, 0, 0, 0.5) 0%, transparent 50%),
+                linear-gradient(180deg, #6f8c6c 0%, #3e5540 100%);
+        }
+
+        .catalog-cover.cover-mags {
+            background:
+                radial-gradient(ellipse at 50% 25%, rgba(242, 234, 212, 0.22) 0%, transparent 55%),
+                radial-gradient(circle at 50% 105%, rgba(0, 0, 0, 0.5) 0%, transparent 50%),
+                linear-gradient(180deg, #c07a4f 0%, #7a4127 100%);
+        }
+
+        .cover-head {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cream-soft);
+        }
+
+        .cover-middle {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 26px;
+            text-align: center;
+        }
+
+        .cover-emblem-big {
+            width: 110px;
+            height: 110px;
+            border: 1px solid rgba(242, 234, 212, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--cream);
+            font-size: 3.2rem;
+            line-height: 1;
+            background: rgba(242, 234, 212, 0.05);
+            position: relative;
+        }
+
+        .cover-emblem-big::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 1px solid rgba(242, 234, 212, 0.2);
+            border-radius: 50%;
+        }
+
+        .cover-main-title {
+            font-family: 'Fraunces', serif;
+            font-size: 2.1rem;
+            font-weight: 500;
+            line-height: 1.05;
+        }
+
+        .cover-main-title small {
+            display: block;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 400;
+            margin-top: 10px;
+            color: var(--cream-soft);
+        }
+
+        .cover-foot {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            color: var(--cream-soft);
+        }
+
+        /* Catalog info */
+        .catalog-info .spec {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .catalog-info h3 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .catalog-info h3 em {
+            font-style: italic;
+            color: var(--sage);
+        }
+
+        .catalog-info .byline {
+            font-family: 'Caveat', cursive;
+            font-size: 1.45rem;
+            color: var(--terra);
+            margin-bottom: 32px;
+        }
+
+        .catalog-info .description {
+            font-size: 1.02rem;
+            color: var(--cream-soft);
+            margin-bottom: 32px;
+            line-height: 1.75;
+            max-width: 540px;
+        }
+
+        .catalog-info .description::first-letter {
+            font-family: 'Fraunces', serif;
+            font-size: 3.8rem;
+            float: left;
+            line-height: 0.85;
+            margin: 6px 14px 0 0;
+            color: var(--terra);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .catalog-specs {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 32px;
+            max-width: 520px;
+            align-items: center;
+        }
+
+        .spec-item .spec-label {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            margin-bottom: 6px;
+        }
+
+        .spec-item .spec-value {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            font-weight: 500;
+        }
+
+        .spec-item .spec-value.price {
+            color: var(--terra);
+        }
+
+        /* Verse / mission */
+        .verse {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .verse p {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--sage);
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .verse cite {
+            display: block;
+            font-family: 'Libre Franklin', sans-serif;
+            font-style: normal;
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 18px;
+        }
+
+        .mission-section {
+            padding: 160px 56px;
+            position: relative;
+            text-align: center;
+            background:
+                radial-gradient(ellipse at top, rgba(95, 122, 93, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom, rgba(181, 112, 74, 0.1) 0%, transparent 60%),
+                var(--bg);
+        }
+
+        .mission-inner {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .mission-ornament {
+            width: 100px;
+            margin: 0 auto 40px;
+            color: var(--gold);
+        }
+
+        .mission-inner blockquote {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            font-size: clamp(1.9rem, 3.8vw, 3rem);
+            font-style: italic;
+            line-height: 1.3;
+            color: var(--cream);
+            margin-bottom: 40px;
+        }
+
+        .mission-inner blockquote em {
+            color: var(--sage);
+            font-style: italic;
+        }
+
+        .mission-inner blockquote .handwritten {
+            font-family: 'Caveat', cursive;
+            color: var(--terra);
+            font-size: 1.2em;
+            font-style: normal;
+        }
+
+        .mission-sig {
+            font-family: 'Caveat', cursive;
+            font-size: 1.7rem;
+            color: var(--terra);
+        }
+
+        .mission-role {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            margin-top: 6px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 140px 56px;
+            text-align: center;
+        }
+
+        .newsletter .handwritten {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--terra);
+            margin-bottom: 10px;
+            display: inline-block;
+            transform: rotate(-2deg);
+        }
+
+        .newsletter h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .newsletter h2 em {
+            font-style: italic;
+            color: var(--sage);
+        }
+
+        .newsletter p {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--cream-soft);
+            margin-bottom: 48px;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nl-form {
+            display: flex;
+            max-width: 560px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 6px;
+        }
+
+        .nl-form input {
+            flex: 1;
+            padding: 16px 4px;
+            border: none;
+            background: transparent;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 1rem;
+            color: var(--cream);
+            font-weight: 300;
+        }
+
+        .nl-form input::placeholder { color: var(--cream-muted); }
+        .nl-form input:focus { outline: none; }
+
+        .nl-form button {
+            background: transparent;
+            color: var(--terra);
+            border: none;
+            padding: 0 24px;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nl-form button:hover { color: var(--gold-bright); }
+
+        .nl-promise {
+            margin-top: 24px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.15rem;
+            color: var(--cream-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-alt);
+            border-top: 1px solid var(--line);
+            padding: 100px 56px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .footer-brand .logo-group { margin-bottom: 20px; }
+
+        .footer-brand p {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--cream-soft);
+            max-width: 340px;
+        }
+
+        footer h5 {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        footer ul { list-style: none; }
+        footer li { margin-bottom: 12px; font-size: 0.95rem; }
+        footer a { color: var(--cream-soft); }
+        footer a:hover { color: var(--terra); }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 40px auto 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+        }
+
+        .footer-bottom .script {
+            color: var(--terra);
+            font-size: 1.05rem;
+            letter-spacing: normal;
+            text-transform: none;
+        }
+
+        @media (max-width: 900px) {
+            nav { grid-template-columns: 1fr; padding: 20px 24px; gap: 16px; }
+            .nav-links, .nav-right { display: none; }
+            .hero { padding: 60px 24px; }
+            .hero-showcase { gap: 30px; margin-top: 60px; }
+            .book-3d { width: 180px; padding: 24px 18px; }
+            .section, .mission-section, .newsletter { padding: 80px 24px; }
+            .catalog-entry, .catalog-entry:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                padding: 60px 0;
+            }
+            .catalog-entry:nth-child(even) .catalog-cover-wrap { order: 0; }
+            .catalog-entry:nth-child(even) .catalog-number { left: 0; right: auto; }
+            .catalog-number { position: relative; top: 0; margin-bottom: 16px; }
+            .catalog-cover { width: 100%; max-width: 320px; padding: 32px 24px; }
+            .catalog-specs { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="colophon">
+    A Family Imprint <span>·</span> Est. 2025 <span>·</span> Illinois, USA <span>·</span> Faith. Family. Adventure.
+</div>
+
+<nav>
+    <div class="logo-group">
+        <div class="logo-mark">M</div>
+        <div class="logo-text">
+            <span class="logo-name">Magland Books</span>
+            <span class="logo-tag">a family imprint</span>
+        </div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#books">Catalogue</a></li>
+        <li><a href="#authors">Authors</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+        <a href="#newsletter">Subscribe</a>
+        <a href="#cart" class="nav-cart">Cart (0)</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <svg class="hero-ornament" viewBox="0 0 260 24">
+        <line x1="0" y1="12" x2="110" y2="12" stroke="currentColor" stroke-width="1"/>
+        <line x1="150" y1="12" x2="260" y2="12" stroke="currentColor" stroke-width="1"/>
+        <circle cx="130" cy="12" r="4" fill="currentColor"/>
+        <circle cx="130" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1"/>
+        <circle cx="120" cy="12" r="2" fill="currentColor"/>
+        <circle cx="140" cy="12" r="2" fill="currentColor"/>
+    </svg>
+
+    <div class="hero-kicker">Spring 2026 · Two New Titles</div>
+    <h1>
+        Stories rendered with <em>care</em>,<br>
+        read with <span class="terra">love</span>.
+    </h1>
+    <p class="hero-lede">An independent publisher of faith-based, family-friendly children's literature — crafted in the tradition of careful storytelling and enduring illustration.</p>
+    <div class="hero-actions">
+        <a href="#books" class="btn btn-filled">View the Catalogue</a>
+        <a href="#about" class="btn">Our Mission</a>
+    </div>
+
+    <div class="hero-showcase">
+        <div class="showcase-glow"></div>
+        <div class="book-3d book-sage">
+            <div class="book-top">Magland Books</div>
+            <div class="book-center">
+                <div class="book-monogram">P</div>
+                <div class="book-title-3d">Pirate Flu<br><small>(And What to Do)</small></div>
+            </div>
+            <div class="book-foot">Leigh Gardener</div>
+        </div>
+        <div class="book-3d book-terra">
+            <div class="book-top">A Magland Original</div>
+            <div class="book-center">
+                <div class="book-monogram">M</div>
+                <div class="book-title-3d">Mags &amp; MarMar<br><small>The Gruffly Grizzly</small></div>
+            </div>
+            <div class="book-foot">A Magland Original</div>
+        </div>
+    </div>
+</section>
+
+<div class="verse">
+    <p>"Train up a child in the way he should go; even when he is old he will not depart from it."</p>
+    <cite>Proverbs 22:6</cite>
+</div>
+
+<section class="section" id="books">
+    <div class="section-label">
+        <span class="handwritten">coming soon</span>
+        <div class="kicker">The Catalogue · Spring 2026</div>
+        <h2>Two new <em>adventures</em></h2>
+        <div class="subtitle">Released with deliberate care, in first-run hardcover editions.</div>
+        <div class="section-divider">
+            <span class="divider-diamond"></span>
+        </div>
+    </div>
+
+    <article class="catalog-entry">
+        <div class="catalog-number">No. 01</div>
+        <div class="catalog-cover-wrap">
+            <div class="catalog-cover cover-pirate">
+                <div class="cover-head">Magland Books</div>
+                <div class="cover-middle">
+                    <div class="cover-emblem-big">P</div>
+                    <div class="cover-main-title">Pirate Flu<br><small>(And What to Do)</small></div>
+                </div>
+                <div class="cover-foot">Leigh Gardener · 2026</div>
+            </div>
+        </div>
+        <div class="catalog-info">
+            <div class="spec">New · Picture Book · Ages 4–9</div>
+            <h3>Pirate Flu <em>(And What to Do)</em></h3>
+            <div class="byline">by Leigh Gardener</div>
+            <p class="description">When a young adventurer catches a mysterious case of the pirate flu, only courage, family, and a touch of faith can see them through. A warm, rollicking read-aloud from Magland's debut author — returning in a carefully reissued first edition.</p>
+            <div class="catalog-specs">
+                <div class="spec-item">
+                    <div class="spec-label">Price</div>
+                    <div class="spec-value price">$14.99</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Format</div>
+                    <div class="spec-value">Hardcover</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Pages</div>
+                    <div class="spec-value">32</div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-filled">Pre-order</a>
+        </div>
+    </article>
+
+    <article class="catalog-entry">
+        <div class="catalog-number">No. 02</div>
+        <div class="catalog-cover-wrap">
+            <div class="catalog-cover cover-mags">
+                <div class="cover-head">A Magland Original</div>
+                <div class="cover-middle">
+                    <div class="cover-emblem-big">M</div>
+                    <div class="cover-main-title">Mags &amp; MarMar<br><small>The Mystery of the Gruffly Grizzly</small></div>
+                </div>
+                <div class="cover-foot">A Magland Original · 2026</div>
+            </div>
+        </div>
+        <div class="catalog-info">
+            <div class="spec">New · Illustrated Chapter Book · Ages 5–10</div>
+            <h3>Mags &amp; MarMar <em>The Gruffly Grizzly</em></h3>
+            <div class="byline">a Magland original</div>
+            <p class="description">Two curious siblings and one very grumpy bear. A gentle mystery about kindness, patience, and what happens when you stop to really listen — the first in a planned series of family read-aloud adventures.</p>
+            <div class="catalog-specs">
+                <div class="spec-item">
+                    <div class="spec-label">Price</div>
+                    <div class="spec-value price">$14.99</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Format</div>
+                    <div class="spec-value">Hardcover</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Pages</div>
+                    <div class="spec-value">64</div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-filled">Pre-order</a>
+        </div>
+    </article>
+</section>
+
+<section class="mission-section" id="about">
+    <div class="mission-inner">
+        <svg class="mission-ornament" viewBox="0 0 100 24">
+            <line x1="0" y1="12" x2="38" y2="12" stroke="currentColor" stroke-width="1"/>
+            <line x1="62" y1="12" x2="100" y2="12" stroke="currentColor" stroke-width="1"/>
+            <circle cx="50" cy="12" r="3" fill="currentColor"/>
+            <circle cx="50" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        <blockquote>
+            "<em>Faith in Jesus</em> and <span class="handwritten">freedom to be adventurers</span> — that is the heart of every story we set in print."
+        </blockquote>
+        <div class="mission-sig">— The Magland Family</div>
+        <div class="mission-role">Publisher · Magland Books</div>
+    </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+    <span class="handwritten">come along —</span>
+    <h2>Join the <em>Magland family</em></h2>
+    <p>Occasional correspondence on new releases, author notes, and matters of the Magland craft. Once a month, no more.</p>
+    <form class="nl-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Welcome';">
+        <input type="email" placeholder="Your correspondence address" required>
+        <button type="submit">Subscribe</button>
+    </form>
+    <div class="nl-promise">no spam, no fluff — just the good stuff</div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="logo-group">
+                <div class="logo-mark">M</div>
+                <div class="logo-text">
+                    <span class="logo-name">Magland Books</span>
+                    <span class="logo-tag">a family imprint</span>
+                </div>
+            </div>
+            <p>An independent publisher of faith-based, family-friendly children's literature.</p>
+        </div>
+        <div>
+            <h5>Catalogue</h5>
+            <ul>
+                <li><a href="#">All titles</a></li>
+                <li><a href="#">Coming soon</a></li>
+                <li><a href="#">By age</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>About</h5>
+            <ul>
+                <li><a href="#">The imprint</a></li>
+                <li><a href="#">Authors</a></li>
+                <li><a href="#">Press</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>Correspond</h5>
+            <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Rights</a></li>
+                <li><a href="#">Libraries</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Magland Books, LLC · All rights reserved</span>
+        <span><span class="script">Made with care</span> · Illinois, USA</span>
+    </div>
+</footer>
+
+</body>
+</html>

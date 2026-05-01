@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magland Books — Homepage Layout Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #14525F;
+    --teal-deep: #10333A;
+    --teal-mint: #E7F1F0;
+    --peach: #FFC9B9;
+    --blush: #FFE4DC;
+    --rose: #BF9789;
+    --warm: #40322E;
+    --cream: #FFF9F5;
+    --paper: #FFFFFF;
+    --rule: rgba(20, 82, 95, 0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--warm);
+    padding: 40px 32px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1700px; margin: 0 auto; }
+  header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 2px double var(--teal-deep); }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--teal-deep);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  h1 em { font-style: italic; color: var(--rose); }
+  .lede {
+    color: var(--warm);
+    font-size: 1rem;
+    max-width: 880px;
+    font-weight: 300;
+  }
+  .lede b { color: var(--teal); font-weight: 600; }
+
+  .row-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 32px 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid var(--rule);
+  }
+  .row-label h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--teal-deep);
+  }
+  .row-label .meta {
+    font-size: 0.85rem;
+    color: var(--taupe, #80655D);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Featured row — V4 alone, full width */
+  .featured-row {
+    margin-bottom: 28px;
+  }
+  .featured-card {
+    background: var(--paper);
+    border: 2px solid var(--peach);
+    border-radius: 14px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    transition: box-shadow 0.2s;
+    position: relative;
+  }
+  .featured-card:hover {
+    box-shadow: 0 16px 40px rgba(20, 82, 95, 0.12);
+  }
+  .featured-card::before {
+    content: "RECOMMENDED · CLOSEST TO LIVE SITE";
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: var(--peach);
+    color: var(--teal-deep);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    padding: 6px 12px;
+    border-radius: 4px;
+    z-index: 5;
+  }
+  .featured-frame {
+    aspect-ratio: 16/9;
+    border-right: 1px solid var(--rule);
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+  .featured-frame iframe {
+    width: 200%;
+    height: 200%;
+    border: none;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .featured-info {
+    padding: 36px 36px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .featured-info .info-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--rose);
+    margin-bottom: 6px;
+  }
+  .featured-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--teal-deep);
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+  }
+  .featured-info .info-strategy {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    background: var(--teal-mint);
+    color: var(--teal-deep);
+    align-self: flex-start;
+  }
+  .featured-info p {
+    color: var(--warm);
+    font-size: 1rem;
+    margin-bottom: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .featured-info ul {
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  .featured-info li {
+    font-size: 0.92rem;
+    color: var(--warm);
+    margin-bottom: 6px;
+    padding-left: 16px;
+    position: relative;
+    font-weight: 300;
+  }
+  .featured-info li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--rose);
+  }
+  .featured-info a {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--teal);
+    color: var(--paper);
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .featured-info a:hover { background: var(--teal-deep); }
+
+  /* Standard 3-up grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .card {
+    background: var(--paper);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px rgba(20, 82, 95, 0.1);
+  }
+  .frame {
+    aspect-ratio: 16/10;
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+  .frame iframe {
+    width: 200%;
+    height: 200%;
+    border: none;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .info {
+    padding: 22px 24px 24px;
+  }
+  .info-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--rose);
+    margin-bottom: 4px;
+  }
+  .info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--teal-deep);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .info-strategy {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .info-strategy.s1 { background: var(--teal-mint); color: var(--teal-deep); }
+  .info-strategy.s2 { background: var(--blush); color: var(--rose); }
+  .info-strategy.s3 { background: var(--peach); color: var(--teal-deep); }
+  .info p {
+    color: var(--warm);
+    font-size: 0.92rem;
+    margin-bottom: 14px;
+    font-weight: 300;
+  }
+  .info ul {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+  .info li {
+    font-size: 0.85rem;
+    color: var(--warm);
+    margin-bottom: 4px;
+    padding-left: 14px;
+    position: relative;
+    font-weight: 300;
+  }
+  .info li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--rose);
+  }
+  .info a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--peach);
+    padding-bottom: 1px;
+    font-weight: 600;
+  }
+  .info a:hover { color: var(--teal-deep); }
+
+  .note {
+    margin-top: 36px;
+    padding: 24px 28px;
+    background: var(--paper);
+    border-radius: 12px;
+    border: 1px solid var(--rule);
+    font-size: 0.92rem;
+    color: var(--warm);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .note b { color: var(--teal); font-weight: 600; }
+  .note code {
+    background: var(--cream);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: var(--teal);
+  }
+
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .featured-card { grid-template-columns: 1fr; }
+    .featured-frame { border-right: none; border-bottom: 1px solid var(--rule); }
+  }
+  @media (max-width: 740px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Round 3 · Layout exploration · v2</div>
+    <h1>Magland Books — four <em>structural directions</em></h1>
+    <p class="lede">Same brand throughout — <b>real logo, real book covers, real teal/peach palette, Playfair + Poppins</b>. The variants differ in <b>information architecture and layout</b>, not in brand identity. <b>V4 mirrors the live site's structure</b>; V1–V3 propose progressively more ambitious IA changes.</p>
+  </header>
+
+  <!-- FEATURED: V4 — closest to current -->
+  <div class="row-label">
+    <h2>Closest to Current Site</h2>
+    <span class="meta">same structure, cleaner execution</span>
+  </div>
+  <div class="featured-row">
+    <div class="featured-card">
+      <div class="featured-frame">
+        <iframe src="variant-4.html" loading="lazy"></iframe>
+      </div>
+      <div class="featured-info">
+        <div class="info-num">Direction Four</div>
+        <h2>Live Site, Refined</h2>
+        <span class="info-strategy">Minimum-disruption refresh</span>
+        <p>Mirrors the current Wix site's structure and palette exactly. Same nav order (About Us / Shop / Blog / More), same hero copy, same book grid, same footer columns (Explore / Support / Connect). Just better typography, spacing, and grid alignment.</p>
+        <ul>
+          <li>Header with logo + horizontal nav + Cart, identical pattern to live site</li>
+          <li>Hero copy verbatim — "Stories That Spark Faith, Laughter, and Adventure!"</li>
+          <li>Books in clean 2-up cards with real covers and bylines</li>
+          <li>Mission centered on teal-mint surface — same copy, calmer block</li>
+          <li>Newsletter on blush surface with real Magland copy</li>
+          <li>Dark teal footer with Explore / Support / Connect (matches live)</li>
+        </ul>
+        <a href="variant-4.html">Open V4 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3-up grid: progressively more ambitious -->
+  <div class="row-label">
+    <h2>More Ambitious Restructures</h2>
+    <span class="meta">three IA directions to consider</span>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="frame"><iframe src="variant-1.html" loading="lazy"></iframe></div>
+      <div class="info">
+        <div class="info-num">Direction One</div>
+        <h2>Bookstore Storefront</h2>
+        <span class="info-strategy s1">Commercial-first IA</span>
+        <p>Polished retail experience. Lead with one featured book, sell it well, mission supports.</p>
+        <ul>
+          <li>Sticky nav with cart pill + search</li>
+          <li>Featured-book hero (Pirate Flu) with "just out" badge</li>
+          <li>Book grid 2-up with full covers, real bylines</li>
+          <li>Trust strip with real-feeling copy</li>
+          <li>Mission as supporting block</li>
+        </ul>
+        <a href="variant-1.html">Open V1 →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="frame"><iframe src="variant-2.html" loading="lazy"></iframe></div>
+      <div class="info">
+        <div class="info-num">Direction Two</div>
+        <h2>Family Letter</h2>
+        <span class="info-strategy s2">Relationship-first IA</span>
+        <p>Inverts ecom hierarchy — earn trust before selling. The mission opens the page; books appear after.</p>
+        <ul>
+          <li>"Dear reader" hero opens like a letter</li>
+          <li>Drop-cap body, signature, no cart in hero</li>
+          <li>Books shown as "here's what we've made"</li>
+          <li>Alternating editorial book rows</li>
+          <li>Newsletter signs off as a letter close</li>
+        </ul>
+        <a href="variant-2.html">Open V2 →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="frame"><iframe src="variant-3.html" loading="lazy"></iframe></div>
+      <div class="info">
+        <div class="info-num">Direction Three</div>
+        <h2>Catalog / Issue</h2>
+        <span class="info-strategy s3">Editorial-feature IA</span>
+        <p>Each book gets a full feature spread with watercolor backdrop. Homepage reads like a publication.</p>
+        <ul>
+          <li>Issue masthead — Vol. I, No. 2, Spring 2026</li>
+          <li>Floating ToC dot-nav anchored on left</li>
+          <li>Per-book color wash echoes the cover</li>
+          <li>Pull-quote interlude between features</li>
+          <li>"Get the next issue" subscribe close</li>
+        </ul>
+        <a href="variant-3.html">Open V3 →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <b>Note:</b> Brand is identical across all four variants — same <code>./assets/logo.png</code>, <code>book-pirate.jpg</code>, <code>book-grizzly.jpg</code>, same teal #14525F + peach #FFC9B9 + blush #FFE4DC palette, same Playfair Display + Poppins type pairing. <b>V4 is a Monday-shippable refresh of the current site.</b> V1–V3 propose progressively more ambitious restructures if you want to rethink the homepage IA.
+  </div>
+</div>
+
+</body>
+</html>

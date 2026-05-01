@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magland Books — A Family Imprint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep: #0a1a2f;
+            --deep-alt: #0f2038;
+            --deep-surface: #14263f;
+            --line: rgba(201, 160, 82, 0.2);
+            --line-strong: rgba(201, 160, 82, 0.45);
+            --gold: #c9a052;
+            --gold-bright: #e4be6e;
+            --gold-deep: #8c6a2f;
+            --cream: #f2ead4;
+            --cream-soft: rgba(242, 234, 212, 0.85);
+            --cream-muted: rgba(242, 234, 212, 0.6);
+            --cream-faint: rgba(242, 234, 212, 0.35);
+            --burgundy: #8a3a3e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Libre Franklin', -apple-system, sans-serif;
+            background: var(--deep);
+            color: var(--cream);
+            line-height: 1.7;
+            font-weight: 300;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            color: var(--cream);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.005em;
+        }
+
+        a { color: var(--gold); text-decoration: none; transition: all 0.3s ease; }
+        a:hover { color: var(--gold-bright); }
+
+        /* Colophon bar */
+        .colophon {
+            background: var(--deep-alt);
+            border-bottom: 1px solid var(--line);
+            padding: 10px 0;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-align: center;
+            color: var(--cream-muted);
+            font-weight: 400;
+        }
+
+        .colophon span { color: var(--gold); margin: 0 12px; }
+
+        /* Nav */
+        nav {
+            padding: 40px 60px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            background: var(--deep);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            gap: 36px;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .nav-right { justify-content: flex-end; }
+
+        .nav-left a, .nav-right a {
+            color: var(--cream-soft);
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-left a:hover, .nav-right a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        .wordmark {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 2rem;
+            letter-spacing: 0.02em;
+            color: var(--cream);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .wordmark::before, .wordmark::after {
+            content: '•';
+            color: var(--gold);
+            margin: 0 14px;
+            font-style: normal;
+            font-size: 0.7em;
+            vertical-align: middle;
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 60px 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .ornament-top {
+            width: 260px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .hero-kicker {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 7vw, 6.8rem);
+            font-weight: 400;
+            line-height: 1.02;
+            letter-spacing: -0.015em;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .hero-lede {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--cream-soft);
+            max-width: 620px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 36px;
+            font-family: 'Libre Franklin', sans-serif;
+            font-weight: 400;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            background: transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: var(--deep);
+            letter-spacing: 4px;
+        }
+
+        .btn-filled {
+            background: var(--gold);
+            color: var(--deep);
+        }
+
+        .btn-filled:hover {
+            background: var(--gold-bright);
+            border-color: var(--gold-bright);
+        }
+
+        /* Ornament */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 60px auto;
+            max-width: 400px;
+            color: var(--gold);
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--line-strong);
+        }
+
+        .divider-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        /* Hero book display */
+        .hero-showcase {
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .showcase-book {
+            width: 240px;
+            aspect-ratio: 3/4;
+            position: relative;
+            border-radius: 2px 6px 6px 2px;
+            box-shadow:
+                -3px 0 0 rgba(0,0,0,0.35),
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(201, 160, 82, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 36px 28px;
+            color: var(--cream);
+        }
+
+        .showcase-book::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 16px;
+            background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+        }
+
+        .showcase-book::after {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            border: 1px solid var(--line-strong);
+            pointer-events: none;
+        }
+
+        .showcase-book-1 {
+            background:
+                radial-gradient(circle at 50% 30%, rgba(201, 160, 82, 0.15) 0%, transparent 60%),
+                linear-gradient(180deg, #162c49 0%, #091626 100%);
+            transform: rotate(-3deg);
+        }
+
+        .showcase-book-2 {
+            background:
+                radial-gradient(circle at 50% 30%, rgba(201, 160, 82, 0.15) 0%, transparent 60%),
+                linear-gradient(180deg, #3d1b1f 0%, #1f0a0d 100%);
+            transform: rotate(4deg) translateY(30px);
+        }
+
+        .book-top-meta {
+            text-align: center;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-top: 8px;
+        }
+
+        .book-center {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .book-monogram {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 2.4rem;
+            color: var(--gold);
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .book-showcase-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+
+        .book-showcase-title small {
+            display: block;
+            font-size: 0.85rem;
+            font-style: italic;
+            font-weight: 400;
+            margin-top: 8px;
+            color: var(--cream-soft);
+        }
+
+        .book-bottom-meta {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--cream-soft);
+            padding-bottom: 8px;
+        }
+
+        /* Section */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 60px;
+        }
+
+        .section-label {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label .kicker {
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .section-label h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.6rem, 5vw, 4.4rem);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .section-label h2 span {
+            font-style: normal;
+        }
+
+        .section-label .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--cream-soft);
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Catalog entries */
+        .catalog-entry {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 80px;
+            align-items: center;
+            padding: 80px 0;
+            border-bottom: 1px solid var(--line);
+            position: relative;
+        }
+
+        .catalog-entry:last-child { border-bottom: none; }
+
+        .catalog-entry:nth-child(even) {
+            grid-template-columns: 1.3fr 1fr;
+        }
+
+        .catalog-entry:nth-child(even) .catalog-cover-wrap {
+            order: 2;
+        }
+
+        .catalog-number {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .catalog-cover-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        .catalog-cover {
+            width: 340px;
+            aspect-ratio: 3/4;
+            position: relative;
+            border-radius: 2px 6px 6px 2px;
+            box-shadow:
+                -3px 0 0 rgba(0,0,0,0.35),
+                0 30px 60px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 44px 34px;
+            color: var(--cream);
+        }
+
+        .catalog-cover::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 18px;
+            background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+        }
+
+        .catalog-cover::after {
+            content: '';
+            position: absolute;
+            inset: 18px;
+            border: 1px solid var(--line-strong);
+            pointer-events: none;
+        }
+
+        .catalog-cover.cover-pirate {
+            background:
+                radial-gradient(circle at 50% 30%, rgba(201, 160, 82, 0.18) 0%, transparent 60%),
+                linear-gradient(180deg, #162c49 0%, #091626 100%);
+        }
+
+        .catalog-cover.cover-mags {
+            background:
+                radial-gradient(circle at 50% 30%, rgba(201, 160, 82, 0.18) 0%, transparent 60%),
+                linear-gradient(180deg, #3d1b1f 0%, #1f0a0d 100%);
+        }
+
+        .cover-head {
+            text-align: center;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .cover-middle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 26px;
+            text-align: center;
+        }
+
+        .cover-emblem-big {
+            width: 100px;
+            height: 100px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--gold);
+            font-size: 2.6rem;
+            position: relative;
+        }
+
+        .cover-emblem-big::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+        }
+
+        .cover-main-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.08;
+            letter-spacing: -0.005em;
+        }
+
+        .cover-main-title small {
+            display: block;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 400;
+            margin-top: 10px;
+            color: var(--cream-soft);
+            letter-spacing: 0;
+        }
+
+        .cover-foot {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--cream-soft);
+        }
+
+        /* Catalog info */
+        .catalog-info .spec {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .catalog-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin-bottom: 16px;
+        }
+
+        .catalog-info .byline {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 32px;
+        }
+
+        .catalog-info .description {
+            font-size: 1.02rem;
+            color: var(--cream-soft);
+            margin-bottom: 32px;
+            line-height: 1.75;
+            max-width: 540px;
+        }
+
+        .catalog-info .description::first-letter {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.8rem;
+            float: left;
+            line-height: 0.85;
+            margin: 6px 14px 0 0;
+            color: var(--gold);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .catalog-specs {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .spec-item .spec-label {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            margin-bottom: 6px;
+        }
+
+        .spec-item .spec-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            color: var(--cream);
+            font-weight: 500;
+        }
+
+        /* Mission */
+        .mission-section {
+            background: var(--deep-alt);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 160px 60px;
+            position: relative;
+        }
+
+        .mission-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mission-ornament {
+            width: 80px;
+            margin: 0 auto 40px;
+            color: var(--gold);
+        }
+
+        .mission-inner blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-style: italic;
+            line-height: 1.35;
+            color: var(--cream);
+            margin-bottom: 40px;
+        }
+
+        .mission-inner blockquote em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .mission-attribution {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--cream-muted);
+            font-weight: 400;
+        }
+
+        .mission-attribution span {
+            color: var(--gold);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 160px 60px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .newsletter h2 span {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .newsletter p {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--cream-soft);
+            margin-bottom: 48px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nl-form {
+            display: flex;
+            max-width: 560px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 6px;
+        }
+
+        .nl-form input {
+            flex: 1;
+            padding: 16px 4px;
+            border: none;
+            background: transparent;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 1rem;
+            color: var(--cream);
+            font-weight: 300;
+        }
+
+        .nl-form input::placeholder { color: var(--cream-muted); }
+        .nl-form input:focus { outline: none; }
+
+        .nl-form button {
+            background: transparent;
+            color: var(--gold);
+            border: none;
+            padding: 0 24px;
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .nl-form button:hover { color: var(--gold-bright); }
+
+        /* Footer */
+        footer {
+            background: var(--deep-alt);
+            border-top: 1px solid var(--line);
+            padding: 100px 60px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .footer-brand .wordmark {
+            text-align: left;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand .wordmark::before { display: none; }
+        .footer-brand .wordmark::after { display: none; }
+
+        .footer-brand p {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--cream-soft);
+            max-width: 340px;
+        }
+
+        footer h5 {
+            font-family: 'Libre Franklin', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        footer ul { list-style: none; }
+        footer li { margin-bottom: 12px; font-size: 0.95rem; }
+        footer a { color: var(--cream-soft); }
+        footer a:hover { color: var(--gold); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            nav { grid-template-columns: 1fr; padding: 24px; gap: 16px; }
+            .nav-left, .nav-right { display: none; }
+            .wordmark { font-size: 1.5rem; }
+            .hero { padding: 60px 24px; }
+            .hero-showcase { gap: 30px; margin-top: 60px; }
+            .showcase-book { width: 180px; padding: 24px 18px; }
+            .section, .mission-section, .newsletter { padding: 80px 24px; }
+            .catalog-entry, .catalog-entry:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                padding: 60px 0;
+            }
+            .catalog-entry:nth-child(even) .catalog-cover-wrap { order: 0; }
+            .catalog-number { position: relative; top: 0; margin-bottom: 16px; }
+            .catalog-cover { width: 100%; max-width: 320px; }
+            .catalog-specs { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .colophon { font-size: 0.6rem; letter-spacing: 2px; padding: 8px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="colophon">
+    Magland Books <span>•</span> A Family Imprint <span>•</span> Est. 2025 <span>•</span> Illinois, USA
+</div>
+
+<nav>
+    <div class="nav-left">
+        <a href="#books">Catalogue</a>
+        <a href="#authors">Authors</a>
+        <a href="#about">About</a>
+    </div>
+    <div class="wordmark">Magland Books</div>
+    <div class="nav-right">
+        <a href="#contact">Correspond</a>
+        <a href="#newsletter">The Letter</a>
+        <a href="#cart">Cart</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <svg class="ornament-top" viewBox="0 0 260 24">
+        <line x1="0" y1="12" x2="110" y2="12" stroke="#c9a052" stroke-width="1"/>
+        <line x1="150" y1="12" x2="260" y2="12" stroke="#c9a052" stroke-width="1"/>
+        <circle cx="130" cy="12" r="4" fill="#c9a052"/>
+        <circle cx="130" cy="12" r="10" fill="none" stroke="#c9a052" stroke-width="1"/>
+        <circle cx="120" cy="12" r="2" fill="#c9a052"/>
+        <circle cx="140" cy="12" r="2" fill="#c9a052"/>
+    </svg>
+
+    <div class="hero-kicker">A Family Imprint · Est. 2025</div>
+    <h1>
+        Stories rendered with<br>
+        <em>care</em>, read with <em>love</em>.
+    </h1>
+    <p class="hero-lede">An independent publisher of faith-based, family-friendly children's literature — crafted in the tradition of careful storytelling and enduring illustration.</p>
+    <div class="hero-actions">
+        <a href="#books" class="btn btn-filled">View the Catalogue</a>
+        <a href="#about" class="btn">Our Mission</a>
+    </div>
+
+    <div class="hero-showcase">
+        <div class="showcase-book showcase-book-1">
+            <div class="book-top-meta">Magland Books</div>
+            <div class="book-center">
+                <div class="book-monogram">P</div>
+                <div class="book-showcase-title">Pirate Flu<br><small>(And What to Do)</small></div>
+            </div>
+            <div class="book-bottom-meta">Leigh Gardener</div>
+        </div>
+        <div class="showcase-book showcase-book-2">
+            <div class="book-top-meta">A Magland Original</div>
+            <div class="book-center">
+                <div class="book-monogram">M</div>
+                <div class="book-showcase-title">Mags &amp; MarMar<br><small>The Gruffly Grizzly</small></div>
+            </div>
+            <div class="book-bottom-meta">A Magland Original</div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="books">
+    <div class="section-label">
+        <div class="kicker">The Catalogue · Spring 2026</div>
+        <h2><span>Two</span> new <em>titles</em></h2>
+        <div class="subtitle">Released with deliberate care, in first-run hardcover editions.</div>
+    </div>
+
+    <div class="divider">
+        <span class="divider-diamond"></span>
+    </div>
+
+    <article class="catalog-entry">
+        <div class="catalog-number">No. 01</div>
+        <div class="catalog-cover-wrap">
+            <div class="catalog-cover cover-pirate">
+                <div class="cover-head">Magland Books</div>
+                <div class="cover-middle">
+                    <div class="cover-emblem-big">P</div>
+                    <div class="cover-main-title">Pirate Flu<br><small>(And What to Do)</small></div>
+                </div>
+                <div class="cover-foot">Leigh Gardener · 2026</div>
+            </div>
+        </div>
+        <div class="catalog-info">
+            <div class="spec">New · Picture Book · Ages 4–9</div>
+            <h3>Pirate Flu <em>(And What to Do)</em></h3>
+            <div class="byline">by Leigh Gardener</div>
+            <p class="description">When a young adventurer catches a mysterious case of the pirate flu, only courage, family, and a touch of faith can see them through. A warm, rollicking read-aloud from Magland's debut author — returning in a carefully reissued first edition.</p>
+            <div class="catalog-specs">
+                <div class="spec-item">
+                    <div class="spec-label">Price</div>
+                    <div class="spec-value">$14.99</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Format</div>
+                    <div class="spec-value">Hardcover</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Pages</div>
+                    <div class="spec-value">32</div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-filled">Pre-order</a>
+        </div>
+    </article>
+
+    <article class="catalog-entry">
+        <div class="catalog-number">No. 02</div>
+        <div class="catalog-cover-wrap">
+            <div class="catalog-cover cover-mags">
+                <div class="cover-head">A Magland Original</div>
+                <div class="cover-middle">
+                    <div class="cover-emblem-big">M</div>
+                    <div class="cover-main-title">Mags &amp; MarMar<br><small>The Mystery of the Gruffly Grizzly</small></div>
+                </div>
+                <div class="cover-foot">A Magland Original · 2026</div>
+            </div>
+        </div>
+        <div class="catalog-info">
+            <div class="spec">New · Illustrated Chapter Book · Ages 5–10</div>
+            <h3>Mags &amp; MarMar <em>The Mystery of the Gruffly Grizzly</em></h3>
+            <div class="byline">a Magland original</div>
+            <p class="description">Two curious siblings and one very grumpy bear. A gentle mystery about kindness, patience, and what happens when you stop to really listen — the first in a planned series of family read-aloud adventures.</p>
+            <div class="catalog-specs">
+                <div class="spec-item">
+                    <div class="spec-label">Price</div>
+                    <div class="spec-value">$14.99</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Format</div>
+                    <div class="spec-value">Hardcover</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Pages</div>
+                    <div class="spec-value">64</div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-filled">Pre-order</a>
+        </div>
+    </article>
+</section>
+
+<section class="mission-section" id="about">
+    <div class="mission-inner">
+        <svg class="mission-ornament" viewBox="0 0 80 24">
+            <line x1="0" y1="12" x2="30" y2="12" stroke="currentColor" stroke-width="1"/>
+            <line x1="50" y1="12" x2="80" y2="12" stroke="currentColor" stroke-width="1"/>
+            <circle cx="40" cy="12" r="3" fill="currentColor"/>
+        </svg>
+        <blockquote>
+            "Faith in Jesus and <em>freedom to be adventurers</em> — that is the heart of every story we set in print."
+        </blockquote>
+        <div class="mission-attribution">The Magland Family</div>
+    </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+    <h2>The Magland <span>Letter</span></h2>
+    <p>Occasional correspondence on new releases, author notes, and matters of the Magland craft. Delivered no more than monthly.</p>
+    <form class="nl-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Welcome';">
+        <input type="email" placeholder="Your correspondence address" required>
+        <button type="submit">Subscribe</button>
+    </form>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="wordmark">Magland Books</div>
+            <p>An independent publisher of faith-based, family-friendly children's literature. Family-owned in Illinois, USA.</p>
+        </div>
+        <div>
+            <h5>Catalogue</h5>
+            <ul>
+                <li><a href="#">All Titles</a></li>
+                <li><a href="#">Coming Soon</a></li>
+                <li><a href="#">By Age</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>About</h5>
+            <ul>
+                <li><a href="#">The Imprint</a></li>
+                <li><a href="#">Authors</a></li>
+                <li><a href="#">Press</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5>Correspond</h5>
+            <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Rights</a></li>
+                <li><a href="#">Libraries</a></li>
+                <li><a href="#">Retailers</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Magland Books, LLC</span>
+        <span>Printed with care · All rights reserved</span>
+    </div>
+</footer>
+
+</body>
+</html>

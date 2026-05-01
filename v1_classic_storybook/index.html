@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magland Books — Faith-based stories for the whole family</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-hover: #2a4d7a;
+            --accent: #d4a017;
+            --accent-hover: #b8860b;
+            --secondary: #7a9e7e;
+            --bg: #fdf8f0;
+            --bg-surface: #ffffff;
+            --bg-elevated: #f5ede0;
+            --text-primary: #1e3a5f;
+            --text-body: #2d3748;
+            --text-secondary: #6b7280;
+            --border: #e8dfd0;
+            --border-hover: #d4c9b5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Nunito', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-body);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--text-primary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a { color: var(--accent); text-decoration: none; transition: all 0.2s ease; }
+        a:hover { color: var(--accent-hover); }
+
+        /* Navigation */
+        .nav-wrapper {
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 32px;
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 32px 80px;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.15;
+            border-radius: 50%;
+            filter: blur(30px);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 em {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-body);
+            margin-bottom: 36px;
+            max-width: 520px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            color: var(--bg);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(30, 58, 95, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        /* Hero book stack illustration */
+        .hero-art {
+            position: relative;
+            height: 520px;
+        }
+
+        .book-3d {
+            position: absolute;
+            width: 240px;
+            height: 340px;
+            border-radius: 4px 12px 12px 4px;
+            box-shadow:
+                -2px 0 0 rgba(0,0,0,0.1),
+                -4px 0 0 rgba(0,0,0,0.05),
+                0 20px 40px rgba(30, 58, 95, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 32px 24px;
+            color: var(--bg);
+            overflow: hidden;
+        }
+
+        .book-3d::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 14px;
+            background: linear-gradient(to right, rgba(0,0,0,0.2), transparent);
+        }
+
+        .book-1 {
+            background: linear-gradient(135deg, #c4571a, #8a3a0f);
+            top: 20px;
+            left: 20px;
+            transform: rotate(-6deg);
+        }
+
+        .book-2 {
+            background: linear-gradient(135deg, var(--primary), #0f2340);
+            top: 100px;
+            left: 140px;
+            transform: rotate(5deg);
+        }
+
+        .book-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            line-height: 1.15;
+        }
+
+        .book-author {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+            opacity: 0.85;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .book-emblem {
+            align-self: flex-end;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+        }
+
+        /* Section header */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .eyebrow {
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 2.75rem;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* Book grid */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+        }
+
+        .book-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 32px;
+            padding: 32px;
+            align-items: center;
+        }
+
+        .book-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .book-cover {
+            width: 200px;
+            height: 280px;
+            border-radius: 4px 10px 10px 4px;
+            box-shadow:
+                -2px 0 0 rgba(0,0,0,0.08),
+                0 10px 25px rgba(30, 58, 95, 0.25);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 22px 18px;
+            color: var(--bg);
+        }
+
+        .book-cover.cover-pirate {
+            background: linear-gradient(160deg, #1a4a6e 0%, #0c2841 100%);
+        }
+
+        .book-cover.cover-mags {
+            background: linear-gradient(160deg, #8a3c12 0%, #5a240a 100%);
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 12px;
+            background: linear-gradient(to right, rgba(0,0,0,0.25), transparent);
+        }
+
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(212, 160, 23, 0.4);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .cover-emblem {
+            align-self: center;
+            width: 72px;
+            height: 72px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            line-height: 1.15;
+            text-align: center;
+        }
+
+        .cover-author {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            opacity: 0.85;
+        }
+
+        .book-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .book-badge {
+            display: inline-block;
+            background: var(--bg-elevated);
+            color: var(--accent-hover);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .book-info h3 {
+            font-size: 1.65rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .book-info .author {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .book-info .description {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            color: var(--text-body);
+        }
+
+        .book-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .book-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn-sm {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Mission band */
+        .mission {
+            background: var(--bg-elevated);
+            padding: 80px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission::before, .mission::after {
+            content: '❦';
+            position: absolute;
+            top: 40px;
+            color: var(--accent);
+            opacity: 0.3;
+            font-size: 2rem;
+        }
+        .mission::before { left: 10%; }
+        .mission::after { right: 10%; }
+
+        .mission-inner {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .mission blockquote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.7rem;
+            line-height: 1.5;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .mission-attribution {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 32px 60px;
+            text-align: center;
+        }
+
+        .newsletter-card {
+            background: var(--primary);
+            color: var(--bg);
+            padding: 60px 40px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.15;
+        }
+
+        .newsletter-card h2 {
+            color: var(--bg);
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .newsletter-card p {
+            color: rgba(253, 248, 240, 0.85);
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 520px;
+            margin: 0 auto;
+            position: relative;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            background: var(--bg);
+            color: var(--text-body);
+        }
+
+        .newsletter-form button {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 14px 28px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .newsletter-form button:hover {
+            background: #ffca3a;
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: rgba(253, 248, 240, 0.7);
+            padding: 60px 32px 30px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(253, 248, 240, 0.15);
+        }
+
+        .footer-brand .brand {
+            color: var(--bg);
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            max-width: 320px;
+        }
+
+        footer h4 {
+            color: var(--bg);
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        footer ul { list-style: none; }
+        footer li { margin-bottom: 8px; font-size: 0.9rem; }
+        footer a { color: rgba(253, 248, 240, 0.7); }
+        footer a:hover { color: var(--accent); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(253, 248, 240, 0.5);
+        }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero-art { height: 380px; }
+            .book-3d { width: 200px; height: 280px; }
+            .book-grid { grid-template-columns: 1fr; }
+            .book-card { grid-template-columns: 1fr; text-align: center; padding: 24px; }
+            .book-cover { margin: 0 auto; }
+            .nav-links { display: none; }
+            .footer-inner { grid-template-columns: 1fr 1fr; }
+            .section-header h2 { font-size: 2rem; }
+            .newsletter-card { padding: 40px 24px; }
+            .newsletter-card h2 { font-size: 1.8rem; }
+            .mission blockquote { font-size: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-wrapper">
+    <nav class="nav">
+        <div class="brand">
+            <span class="brand-mark">M</span>
+            Magland Books
+        </div>
+        <ul class="nav-links">
+            <li><a href="#books">Shop</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#authors">Authors</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</div>
+
+<section class="hero">
+    <div>
+        <span class="eyebrow">A Family Imprint</span>
+        <h1>Stories worth <em>reading together</em>.</h1>
+        <p>Magland Books publishes faith-based, family-friendly children's literature — stories that inspire young readers and the families who love them.</p>
+        <div class="cta-group">
+            <a href="#books" class="btn btn-primary">Shop Our Books</a>
+            <a href="#about" class="btn btn-secondary">Meet Magland</a>
+        </div>
+    </div>
+    <div class="hero-art">
+        <div class="book-3d book-1">
+            <div class="book-author">Leigh Gardener</div>
+            <div class="book-emblem">M</div>
+            <div class="book-title">Pirate Flu<br>(And What to Do)</div>
+        </div>
+        <div class="book-3d book-2">
+            <div class="book-author">Magland Originals</div>
+            <div class="book-emblem">M</div>
+            <div class="book-title">The Mystery of the<br>Gruffly Grizzly</div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="books">
+    <div class="section-header">
+        <span class="eyebrow">Our Latest Works</span>
+        <h2>Coming Soon from Magland</h2>
+        <p>Two new adventures from our catalog — each crafted with captivating illustrations and narratives that foster a love of reading.</p>
+    </div>
+
+    <div class="book-grid">
+        <div class="book-card">
+            <div class="book-cover cover-pirate">
+                <div class="cover-author">Leigh Gardener</div>
+                <div class="cover-emblem">⚓</div>
+                <div class="cover-title">Pirate Flu<br>(And What to Do)</div>
+            </div>
+            <div class="book-info">
+                <span class="book-badge">Coming Soon</span>
+                <h3>Pirate Flu (And What to Do)</h3>
+                <p class="author">by Leigh Gardener</p>
+                <p class="description">When a young adventurer catches a mysterious case of the pirate flu, only courage, family, and a bit of faith can see them through. A rollicking read-aloud for ages 4–9.</p>
+                <div class="book-price-row">
+                    <span class="book-price">$14.99</span>
+                    <a href="#" class="btn btn-primary btn-sm">Pre-order</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <div class="book-cover cover-mags">
+                <div class="cover-author">Magland Originals</div>
+                <div class="cover-emblem">★</div>
+                <div class="cover-title">Mags &amp; MarMar<br>The Mystery of the<br>Gruffly Grizzly</div>
+            </div>
+            <div class="book-info">
+                <span class="book-badge">Coming Soon</span>
+                <h3>Mags &amp; MarMar: The Mystery of the Gruffly Grizzly</h3>
+                <p class="author">a Magland original</p>
+                <p class="description">Two curious siblings and one very grumpy bear. A gentle mystery about kindness, patience, and what happens when you stop to really listen. Ages 5–10.</p>
+                <div class="book-price-row">
+                    <span class="book-price">$14.99</span>
+                    <a href="#" class="btn btn-primary btn-sm">Pre-order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mission" id="about">
+    <div class="mission-inner">
+        <span class="eyebrow">Our Mission</span>
+        <blockquote>
+            "Faith in Jesus and freedom to be adventurers — that's the heart of every story we publish."
+        </blockquote>
+        <div class="mission-attribution">— The Magland Family</div>
+    </div>
+</section>
+
+<section class="newsletter" id="contact">
+    <div class="newsletter-card">
+        <h2>Join the Magland Family</h2>
+        <p>Be the first to hear about new releases, author notes, and read-aloud resources for your family.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks for joining!';">
+            <input type="text" placeholder="First name" required>
+            <input type="email" placeholder="Your email" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="brand">
+                <span class="brand-mark">M</span>
+                Magland Books
+            </div>
+            <p>A family-owned publisher of faith-based, family-friendly children's literature.</p>
+        </div>
+        <div>
+            <h4>Shop</h4>
+            <ul>
+                <li><a href="#">All Books</a></li>
+                <li><a href="#">Coming Soon</a></li>
+                <li><a href="#">Authors</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>About</h4>
+            <ul>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Mission</a></li>
+                <li><a href="#">Press</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Help</h4>
+            <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Store Policy</a></li>
+                <li><a href="#">Shipping</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 Magland Books, LLC. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>
