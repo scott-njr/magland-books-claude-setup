@@ -2,7 +2,7 @@
 
 Four contrasting homepage design directions for [maglandbooks.com](https://www.maglandbooks.com), generated with Claude Code using a brand-locked design exploration workflow. **The brand identity is preserved across all four directions** (real logo, real watercolor covers, the live site's teal + peach palette, Playfair Display + Poppins). What varies is **layout / information architecture / structure**.
 
-This repo bundles the deliverable mockups *and* the Claude Code agents and skills used to generate them, so anyone can review, modify, or regenerate the work.
+This repo bundles the deliverable mockups *and* the Claude Code agents and skills used to generate them, so anyone can review, modify, regenerate, or extend the work.
 
 ---
 
@@ -11,7 +11,7 @@ This repo bundles the deliverable mockups *and* the Claude Code agents and skill
 You don't need to install anything.
 
 1. Click **Code → Download ZIP** at the top of this repo (or `git clone` it)
-2. Unzip
+2. Unzip to anywhere you like (the folder location doesn't matter)
 3. Open `mockups/homepage/index.html` in your browser
 
 That gives you a side-by-side viewer for all four design directions. Click any "Open V#" link to jump into the full mockup.
@@ -25,54 +25,103 @@ That gives you a side-by-side viewer for all four design directions. Click any "
 
 ---
 
-## Want to regenerate or modify the mockups with Claude Code?
+## Want to regenerate, modify, or build on top of these mockups?
 
 You'll need:
 - **Claude Code** — install from [claude.com/code](https://claude.com/code) or `brew install anthropic/tap/claude-code` on macOS
 
-Then run the installer to copy the agents and skills into your global Claude config:
+### Step 1 — Choose where the project lives
 
-### macOS / Linux
+The repo can live anywhere on your machine — Claude Code runs in whatever folder you `cd` to. Pick a location that makes sense for you:
 
 ```bash
-cd magland-books-redesign
-./install.sh
+# anywhere — pick what fits your workflow
+git clone https://github.com/scott-njr/magland-books-claude-setup.git ~/Documents/magland-books
+# or
+git clone https://github.com/scott-njr/magland-books-claude-setup.git ~/Projects/magland-redesign
+# or just download the ZIP and unzip it where you like
 ```
 
-### Windows (PowerShell)
+The installer in step 2 only copies global agents/skills to `~/.claude/` (Claude Code's standard location). It does **not** move or copy the project files — they stay wherever you cloned them.
 
-```powershell
-cd magland-books-redesign
-.\install.ps1
+### Step 2 — Install the agents and skills globally
+
+```bash
+cd <wherever-you-cloned-it>
+./install.sh                     # macOS / Linux
+.\install.ps1                    # Windows PowerShell
 ```
 
 Both scripts:
-- Copy the `advisor` and `art-director` agents to `~/.claude/agents/`
-- Copy the `design-explore` and `mockup` skills to `~/.claude/skills/`
+- Copy all agents to `~/.claude/agents/`
+- Copy all skills to `~/.claude/skills/`
 - Back up any existing files of the same name to `~/.claude/.backup-<timestamp>/` before overwriting
 - Are safe to re-run
 
 Pass `--dry-run` (bash) or `-DryRun` (PowerShell) to preview without writing anything.
+
+### Step 3 — Open the project in Claude Code
+
+```bash
+cd <wherever-you-cloned-it>
+claude
+```
+
+Claude Code reads `CLAUDE.md` and `PRODUCT.md` automatically. The agents and skills are now available globally in any Claude Code session.
+
+---
+
+## What's in the toolkit
+
+### Skills (slash commands you can run in Claude Code)
+
+| Slash command | What it does | Cost |
+|---|---|---|
+| `/mockup` | Generates one or more standalone HTML mockups for a single direction. Default for design exploration. | Light |
+| `/design-explore` | Generates 3 contrasting design directions for whatever surface you name (homepage, hero, pricing page, etc.), spawns 6 Opus subagents in parallel to critique each one, and writes a scored recommendation to `mockups/<surface>/REPORT.md`. | **Heavy** — 6 Opus calls |
+| `/seo-audit` | Site-wide SEO audit methodology — technical SEO, on-page, content gaps, structured data, Core Web Vitals, indexing. Use before launching, after a migration, or when investigating a traffic drop. | Medium |
+
+### Agents (auto-spawn when relevant, or invoke explicitly)
+
+| Agent | What it does |
+|---|---|
+| `advisor` | Engineering / standards second opinion. Reads CLAUDE.md, PRODUCT.md, and the work; flags rule violations, hidden assumptions, and blast-radius concerns. Doesn't rewrite — critiques and asks sharp questions. |
+| `art-director` | Brand / taste / differentiation critic. Reads PRODUCT.md (refuses to critique without it); compares against named competitors; flags derivative or category-average work. |
+| `dev-nextjs-app` | Full-stack Next.js + TypeScript + Tailwind developer. Use when converting any of the HTML mockups into a real production site. Also handles plain HTML / static-site work for projects without a Next.js stack. |
+
+### End-to-end workflow
+
+The full toolkit supports a complete redesign cycle:
+
+```
+1. Explore visually    → /mockup or /design-explore (HTML directions)
+2. Pick a winner       → review side-by-side viewer in mockups/<surface>/index.html
+3. Refine craft        → ask the dev-nextjs-app agent or use /mockup to iterate
+4. Build for production → dev-nextjs-app converts HTML to Next.js + Tailwind
+5. Pre-launch SEO check → /seo-audit on the new site
+```
 
 ---
 
 ## What's in this repo
 
 ```
-magland-books-redesign/
+.
 ├── README.md                       (this file)
-├── PRODUCT.md                      Brand thesis — required by design-explore
+├── PRODUCT.md                      Brand thesis — required by design-explore + art-director
 ├── CLAUDE.md                       Project conventions & anti-patterns
 ├── install.sh / install.ps1        Cross-platform installers
 ├── uninstall.sh                    Clean removal
 │
 ├── claude-config/                  ← what gets installed to ~/.claude/
 │   ├── skills/
-│   │   ├── design-explore/         The 6-agent design exploration skill
-│   │   └── mockup/                 Single-direction HTML mockup skill
+│   │   ├── design-explore/         3-direction design exploration with 6-agent critique
+│   │   ├── mockup/                 Single-direction HTML mockup skill
+│   │   └── seo-audit/              Site-wide SEO audit methodology
 │   └── agents/
 │       ├── advisor.md              Engineering / standards critic
-│       └── art-director.md         Taste / brand differentiation critic
+│       ├── art-director.md         Brand / taste critic
+│       └── dev-nextjs-app.md       Full-stack Next.js / static HTML developer
 │
 ├── mockups/homepage/               ← the deliverable
 │   ├── index.html                  Side-by-side viewer (open this)
@@ -91,27 +140,59 @@ magland-books-redesign/
 
 ---
 
-## How to use the workflow once installed
+## Common workflows
 
-Open a terminal in this folder and run `claude`. Then:
+### Regenerate a mockup with new copy
 
-| Slash command | What it does |
-|---|---|
-| `/design-explore` | Generates 3 contrasting design directions for whatever surface you name (homepage, hero, pricing page, etc.), spawns 6 Opus subagents in parallel to critique each one, and writes a scored recommendation to `mockups/<surface>/REPORT.md`. **Heavy** — uses 6 Opus calls. |
-| `/mockup` | Generates one or more standalone HTML mockups for a single direction. Lighter than `/design-explore` — no critique, no scoring. |
-| Mention "advisor" | Spawns the engineering/standards advisor for a second opinion on any plan. |
-| Mention "art director" | Spawns the brand/taste critic for visual review. Requires `PRODUCT.md` to exist. |
+```
+cd <project-folder>
+claude
+> Update mockups/homepage/variant-4.html so the hero copy reads "..." and the CTA button says "Browse Our Story"
+```
 
-The skills read `PRODUCT.md` (brand thesis) and `CLAUDE.md` (project conventions) at the project root, so any redesign you generate will respect Magland's locked brand and documented anti-patterns.
+The `dev-nextjs-app` agent will edit the file in place and respect the locked brand.
 
-> **Note on `/impeccable`:** The `design-explore` skill mentions an `/impeccable` skill for follow-up craft passes. That skill is *not* bundled here — it's larger and not needed to use this repo. The references won't cause errors; they're suggestions for further refinement that you can ignore or implement manually with `/mockup`.
+### Generate a fresh design exploration for a different surface
+
+```
+> /design-explore  pricing page
+```
+
+The skill will:
+1. Generate a no-strategy control variant
+2. Generate 3 contrasting strategic variants
+3. Spawn the `advisor` and `art-director` agents in parallel to critique each
+4. Write a scored recommendation to `mockups/pricing-page/REPORT.md`
+5. Open a side-by-side viewer
+
+### Convert a chosen variant to Next.js
+
+```
+> Use the dev-nextjs-app agent to scaffold a Next.js + TypeScript + Tailwind app from variant-4.html. Migrate design tokens, convert sections to atomic components (Hero, BookGrid, Mission, Newsletter, Footer), and wire the newsletter form to a placeholder handler.
+```
+
+### Pre-launch SEO check
+
+```
+> /seo-audit https://staging.maglandbooks.com
+```
+
+Returns a prioritized punchlist: technical SEO, on-page, content gaps, structured data, Core Web Vitals, indexing.
+
+---
+
+## Notes
+
+> **On `/impeccable`:** The `design-explore` skill mentions an `/impeccable` skill for follow-up craft passes. That skill is *not* bundled here — it's larger and not needed to use this repo. The references won't cause errors; they're suggestions for further refinement that you can ignore or implement manually with `/mockup` and the `dev-nextjs-app` agent.
+
+> **On agent auto-spawn:** Claude Code automatically spawns the right agent based on what you're asking for. You don't have to invoke them explicitly — saying "build a new component" will route to `dev-nextjs-app`; saying "is this on-brand?" will route to `art-director`. You *can* invoke them explicitly with phrases like "have the advisor weigh in" or "/mockup".
 
 ---
 
 ## Removing the installed agents/skills
 
 ```bash
-./uninstall.sh         # macOS/Linux
+./uninstall.sh         # macOS / Linux
 ```
 
 Removes only the files this repo installed. Backups from prior installs (if any) remain in `~/.claude/.backup-*` for manual restore.
@@ -122,4 +203,4 @@ Removes only the files this repo installed. Backups from prior installs (if any)
 
 Mockups, brand thesis, and project conventions: © 2026 Magland Books, LLC. All rights reserved.
 
-Skills (`design-explore`, `mockup`) and agents (`advisor`, `art-director`) are released under Apache 2.0 — feel free to copy, modify, and reuse them on other projects.
+Skills (`design-explore`, `mockup`, `seo-audit`) and agents (`advisor`, `art-director`, `dev-nextjs-app`) are released under Apache 2.0 — feel free to copy, modify, and reuse them on other projects.

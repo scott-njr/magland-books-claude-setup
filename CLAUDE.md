@@ -72,3 +72,14 @@ Other patterns to avoid:
 
 - The `advisor` agent reads `CLAUDE.md` and `PRODUCT.md` and flags rule violations.
 - The `art-director` agent reads `PRODUCT.md` and refuses to critique without it. It compares against named competitors (Tuttle Twins, The Good and the Beautiful, Sophia Institute Press, Sparkhouse Family, Eerdmans Books for Young Readers, Tilbury House) and the broader indie children's publisher space.
+
+## When developing (dev-nextjs-app)
+
+- The `dev-nextjs-app` agent handles both Next.js / TypeScript / Tailwind work AND plain static HTML. For this project (HTML mockups), it operates in static-HTML mode by default.
+- When converting a chosen variant to Next.js for production: scaffold a fresh app, migrate design tokens (CSS custom properties → Tailwind config), convert sections to atomic React components (Hero, BookGrid, Mission, Newsletter, Footer), wire the newsletter form to the project's existing handler (Wix, Mailchimp, ConvertKit, etc.).
+- The agent enforces: no emojis as UI icons, no AI slop patterns, locked brand palette and fonts, real assets only.
+
+## SEO
+
+- Run `/seo-audit` against the live site or a staging URL before any major launch. The skill produces a prioritized punchlist covering technical SEO, on-page, content gaps, structured data, Core Web Vitals, and indexing.
+- For a children's book publisher, pay particular attention to: book schema (Schema.org `Book` and `Product`), author schema (Schema.org `Person`), descriptive alt text on watercolor cover images, and structured navigation that's crawlable without JS.
