@@ -17,7 +17,13 @@ DEST="$HOME/.claude"
 BACKUP_DIR="$DEST/.backup-$(date +%Y%m%d-%H%M%S)"
 
 DRY_RUN=0
-if [ "$1" = "--dry-run" ] || [ "$1" = "-n" ]; then DRY_RUN=1; fi
+ASSUME_YES=0
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run|-n) DRY_RUN=1 ;;
+    --yes|-y)     ASSUME_YES=1 ;;
+  esac
+done
 
 echo ""
 echo -e "${BOLD}${CYAN}Magland Books Redesign — Claude Code installer${RESET}"
@@ -80,12 +86,14 @@ if [ $DRY_RUN -eq 1 ]; then
   exit 0
 fi
 
-# Confirm
-read -p "Proceed with install? [y/N] " -n 1 -r
-echo ""
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  echo "Cancelled."
-  exit 0
+# Confirm (skipped with --yes / -y, e.g. when called from setup.sh)
+if [ $ASSUME_YES -eq 0 ]; then
+  read -p "Proceed with install? [y/N] " -n 1 -r
+  echo ""
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Cancelled."
+    exit 0
+  fi
 fi
 
 # Backup existing
@@ -110,19 +118,11 @@ for d in "$SRC/skills"/*/; do
 done
 
 echo ""
-echo -e "${GREEN}${BOLD}Installed.${RESET}"
+echo -e "${GREEN}${BOLD}Agents and skills installed to ~/.claude/${RESET}"
 echo ""
-echo -e "${BOLD}Next steps${RESET}"
+echo -e "${DIM}This script only installs the Claude Code agents and skills."
+echo -e "For full project setup (npm install, git hooks, .env.local), run:"
+echo -e "  ./setup.sh${RESET}"
 echo ""
-echo -e "  1. ${BOLD}View the mockups${RESET} (no Claude needed):"
-echo -e "       ${DIM}open mockups/homepage/index.html${RESET}"
-echo ""
-echo -e "  2. ${BOLD}Open this project in Claude Code${RESET}:"
-echo -e "       ${DIM}claude${RESET}"
-echo -e "     Then try one of:"
-echo -e "       ${CYAN}/design-explore${RESET} — regenerate three contrasting layout directions"
-echo -e "       ${CYAN}/mockup${RESET}         — riff on a single direction"
-echo ""
-echo -e "  3. ${BOLD}If you need to undo:${RESET}"
-echo -e "       ${DIM}./uninstall.sh${RESET}"
+echo -e "${DIM}To undo just the agents/skills: ./uninstall.sh${RESET}"
 echo ""

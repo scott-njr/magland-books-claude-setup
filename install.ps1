@@ -3,7 +3,8 @@
 # Safe to re-run; existing files are backed up to $HOME\.claude\.backup-yyyyMMdd-HHmmss\
 
 param(
-    [switch]$DryRun
+    [switch]$DryRun,
+    [switch]$Yes
 )
 
 $ErrorActionPreference = 'Stop'
@@ -70,10 +71,12 @@ if ($DryRun) {
     exit 0
 }
 
-$confirm = Read-Host "Proceed with install? [y/N]"
-if ($confirm -notmatch '^[Yy]') {
-    Write-Host "Cancelled."
-    exit 0
+if (-not $Yes) {
+    $confirm = Read-Host "Proceed with install? [y/N]"
+    if ($confirm -notmatch '^[Yy]') {
+        Write-Host "Cancelled."
+        exit 0
+    }
 }
 
 # Backup
@@ -104,16 +107,11 @@ Get-ChildItem (Join-Path $Src 'skills') -Directory | ForEach-Object {
 }
 
 Write-Host ""
-Write-Host "Installed." -ForegroundColor Green
+Write-Host "Agents and skills installed to $HOME\.claude\" -ForegroundColor Green
 Write-Host ""
-Write-Host "Next steps" -ForegroundColor White
+Write-Host "This script only installs the Claude Code agents and skills."
+Write-Host "For full project setup (npm install, git hooks, .env.local), run:"
+Write-Host "  .\setup.ps1"
 Write-Host ""
-Write-Host "  1. View the mockups (no Claude needed):"
-Write-Host "       Start-Process .\mockups\homepage\index.html"
-Write-Host ""
-Write-Host "  2. Open this project in Claude Code:"
-Write-Host "       claude"
-Write-Host "     Then try one of:"
-Write-Host "       /design-explore — regenerate three contrasting layout directions" -ForegroundColor Cyan
-Write-Host "       /mockup         — riff on a single direction" -ForegroundColor Cyan
+Write-Host "To undo just the agents/skills: .\uninstall.sh (or remove from $HOME\.claude\)"
 Write-Host ""

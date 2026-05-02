@@ -1,0 +1,54 @@
+{
+  "rules": [
+    {
+      "id": "no-any-type",
+      "description": "`: any` type annotation — strict mode forbids any",
+      "source": "TypeScript section in CLAUDE.md",
+      "scope": ["*src/*.ts", "*src/*.tsx"],
+      "pattern": ":\\s*any\\b",
+      "severity": "error"
+    },
+    {
+      "id": "no-inline-styles",
+      "description": "`style={{` inline styles — Tailwind utilities only",
+      "source": "Styling section in CLAUDE.md",
+      "scope": ["*src/*.tsx"],
+      "pattern": "style=\\{\\{",
+      "severity": "error"
+    },
+    {
+      "id": "no-external-icon-lib",
+      "description": "Imports from external icon libraries — inline SVGs in src/components/icons/ only",
+      "source": "Styling section in CLAUDE.md",
+      "scope": ["*src/*.ts", "*src/*.tsx"],
+      "pattern": "from\\s+['\"](lucide-react|react-icons|@heroicons/)",
+      "severity": "error"
+    },
+    {
+      "id": "no-hardcoded-hex",
+      "description": "Hex color literals — use design tokens from globals.css",
+      "source": "Design Constraints in CLAUDE.md",
+      "scope": ["*src/*.ts", "*src/*.tsx", "*src/*.js", "*src/*.jsx"],
+      "exclude": ["*src/app/globals.css", "*src/config/site.ts"],
+      "pattern": "#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\b",
+      "severity": "error"
+    },
+    {
+      "id": "no-tailwind-replace",
+      "description": "Tailwind classes built via .replace() — must be static strings",
+      "source": "Design Constraints in CLAUDE.md",
+      "scope": ["*src/*.ts", "*src/*.tsx", "*src/*.js", "*src/*.jsx"],
+      "pattern": "\\.replace\\(",
+      "secondary_pattern": "\"(bg-|text-|border-|ring-|hover:|focus:|dark:|sm:|md:|lg:)[a-zA-Z0-9:_-]+\"",
+      "severity": "error"
+    },
+    {
+      "id": "no-emoji-as-icon",
+      "description": "Emoji used as a UI icon in a component — use inline SVG from src/components/icons/",
+      "source": "Anti-patterns in CLAUDE.md",
+      "scope": ["*src/components/*.tsx"],
+      "pattern": "[★☆✓✗✨🌟⭐👨👩👶🍼🧸📚📖🎨🎭🎪🎁🎀🎉]",
+      "severity": "error"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "LINT_CONVENTIONS_EVENT=PostToolUse bash scripts/lint-conventions.sh || true",
+            "timeout": 10,
+            "statusMessage": "lint:conventions"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "LINT_CONVENTIONS_EVENT=Stop bash scripts/lint-conventions.sh || true",
+            "timeout": 15,
+            "statusMessage": "lint:conventions (repo sweep)"
+          }
+        ]
+      }
+    ]
+  }
+}

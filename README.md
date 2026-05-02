@@ -1,27 +1,60 @@
-# Magland Books — Homepage Redesign
+# Magland Books — Production App
 
-Four contrasting homepage design directions for [maglandbooks.com](https://www.maglandbooks.com), generated with Claude Code using a brand-locked design exploration workflow. **The brand identity is preserved across all four directions** (real logo, real watercolor covers, the live site's teal + peach palette, Playfair Display + Poppins). What varies is **layout / information architecture / structure**.
+This repo contains three layers:
 
-This repo bundles the deliverable mockups *and* the Claude Code agents and skills used to generate them, so anyone can review, modify, regenerate, or extend the work.
+1. **Production Next.js app** at the repo root — the actual site that replaces the current Wix install. Built on the "Family Letter" design direction with locked brand identity. **Developers start here:** [`DEVELOPER.md`](./DEVELOPER.md).
+2. **Locked design reference** at `mockups/homepage/variant-2.html` — the standalone HTML mockup that established the brand language. Open it by double-clicking. Earlier exploration rounds were pruned from the repo (recoverable from git history).
+3. **Claude Code toolkit** in `claude-config/` — the agents and skills used to generate, critique, and maintain the work. `setup.sh` installs them as part of full project setup, or run `./install.sh` to register them globally without the rest.
+
+The brand identity is **locked** — see [`PRODUCT.md`](./PRODUCT.md).
 
 ---
 
-## Just want to see the mockups?
+## Production app — first-time setup
+
+**One command.** `setup.sh` handles everything — Claude Code agents, npm dependencies, pre-commit secret scanner, and `.env.local`. Safe to re-run anytime.
+
+```bash
+git clone https://github.com/scott-njr/magland-books-claude-setup.git
+cd magland-books-claude-setup
+
+bash setup.sh                       # macOS / Linux
+# .\setup.ps1                       # Windows PowerShell
+
+# Then fill in .env.local — the values you need are documented in DEVELOPER.md
+npm run dev                         # http://localhost:3000
+```
+
+### Updating after Scott pushes changes
+
+When you see a notification (or just want to make sure you're up to date):
+
+```bash
+cd <wherever-you-cloned-it>
+git pull
+bash setup.sh                       # macOS / Linux  — re-runs everything; idempotent
+# .\setup.ps1                       # Windows PowerShell
+```
+
+`setup.sh` is **idempotent** — running it again does the right thing:
+
+- **Claude Code agents and skills**: any updated versions in the repo overwrite your local copies in `~/.claude/`. Your previous versions are auto-backed-up to `~/.claude/.backup-<timestamp>/`.
+- **npm dependencies**: `npm install` picks up any new or updated packages.
+- **Pre-commit hook**: re-installs the hook (no-op if already current).
+- **`.env.local`**: leaves your existing file alone — never overwritten.
+
+For env var setup, integrations (Square + Google Apps Script), deploying to Vercel, secret hygiene, and contributing conventions, read [`DEVELOPER.md`](./DEVELOPER.md).
+
+---
+
+## Just want to see the chosen design?
 
 You don't need to install anything.
 
 1. Click **Code → Download ZIP** at the top of this repo (or `git clone` it)
-2. Unzip to anywhere you like (the folder location doesn't matter)
-3. Open `mockups/homepage/index.html` in your browser
+2. Open `mockups/homepage/variant-2.html` in your browser
 
-That gives you a side-by-side viewer for all four design directions. Click any "Open V#" link to jump into the full mockup.
-
-| Direction | Strategy | What it does |
-|---|---|---|
-| **V4 — Live Site, Refined** *(closest to current)* | Minimum-disruption refresh | Same nav order, hero copy, book grid, footer columns as the live Wix site — just cleaner type, spacing, and grid alignment |
-| **V1 — Bookstore Storefront** | Commercial-first IA | Lead with one featured book, sell it well; sticky nav with cart + search; mission supports |
-| **V2 — Family Letter** | Relationship-first IA | Inverts ecommerce hierarchy — homepage opens as a letter from the family, books follow as "here's what we made" |
-| **V3 — Catalog / Issue** | Editorial-feature IA | Each book gets a full feature spread with watercolor backdrop; floating ToC nav; "Vol. I, No. 2" masthead |
+That's the locked design reference — the "Family Letter" direction that the production app extends. It's a standalone HTML file, no build step.
 
 ---
 
@@ -30,44 +63,35 @@ That gives you a side-by-side viewer for all four design directions. Click any "
 You'll need:
 - **Claude Code** — install from [claude.com/code](https://claude.com/code) or `brew install anthropic/tap/claude-code` on macOS
 
-### Step 1 — Choose where the project lives
-
-The repo can live anywhere on your machine — Claude Code runs in whatever folder you `cd` to. Pick a location that makes sense for you:
+The full setup path is the same as the production-app one above:
 
 ```bash
-# anywhere — pick what fits your workflow
-git clone https://github.com/scott-njr/magland-books-claude-setup.git ~/Documents/magland-books
-# or
-git clone https://github.com/scott-njr/magland-books-claude-setup.git ~/Projects/magland-redesign
-# or just download the ZIP and unzip it where you like
+git clone https://github.com/scott-njr/magland-books-claude-setup.git
+cd magland-books-claude-setup
+bash setup.sh                       # installs Claude Code agents + skills, npm deps, git hooks, and .env.local
+claude                              # opens this project in Claude Code
 ```
 
-The installer in step 2 only copies global agents/skills to `~/.claude/` (Claude Code's standard location). It does **not** move or copy the project files — they stay wherever you cloned them.
+Once Claude Code is running, try:
 
-### Step 2 — Install the agents and skills globally
+```
+/design-explore   pricing page         # 3 critiqued layout directions for any surface
+/mockup           authors page         # one HTML mockup, lighter
+/seo-audit        https://staging.…    # site-wide SEO audit
+```
+
+Claude Code reads `CLAUDE.md`, `PRODUCT.md`, and the `.claude/conventions.json` rule set automatically.
+
+### Just installing the agents and skills (no production-app setup)
+
+If you only want the Claude Code toolkit and skip everything else, run the lighter installer instead of `setup.sh`:
 
 ```bash
-cd <wherever-you-cloned-it>
 ./install.sh                     # macOS / Linux
 .\install.ps1                    # Windows PowerShell
 ```
 
-Both scripts:
-- Copy all agents to `~/.claude/agents/`
-- Copy all skills to `~/.claude/skills/`
-- Back up any existing files of the same name to `~/.claude/.backup-<timestamp>/` before overwriting
-- Are safe to re-run
-
-Pass `--dry-run` (bash) or `-DryRun` (PowerShell) to preview without writing anything.
-
-### Step 3 — Open the project in Claude Code
-
-```bash
-cd <wherever-you-cloned-it>
-claude
-```
-
-Claude Code reads `CLAUDE.md` and `PRODUCT.md` automatically. The agents and skills are now available globally in any Claude Code session.
+That copies agents to `~/.claude/agents/` and skills to `~/.claude/skills/`, backing up any existing same-named files to `~/.claude/.backup-<timestamp>/`. Pass `--dry-run` (bash) or `-DryRun` (PowerShell) to preview without writing.
 
 ---
 
@@ -108,10 +132,31 @@ The full toolkit supports a complete redesign cycle:
 ```
 .
 ├── README.md                       (this file)
+├── DEVELOPER.md                    ← Developer onboarding for the production app
 ├── PRODUCT.md                      Brand thesis — required by design-explore + art-director
-├── CLAUDE.md                       Project conventions & anti-patterns
-├── install.sh / install.ps1        Cross-platform installers
-├── uninstall.sh                    Clean removal
+├── CLAUDE.md                       Project conventions & anti-patterns (read by Claude Code)
+├── install.sh / install.ps1        Installs the agents + skills to ~/.claude/
+├── uninstall.sh                    Clean removal of installed agents/skills
+│
+├── package.json, tsconfig.json     Production Next.js app — see DEVELOPER.md
+├── next.config.ts, eslint.config.mjs
+├── jest.config.ts, playwright.config.ts, postcss.config.js
+├── .env.local.example              Env vars (Apps Script + Square)
+│
+├── src/                            Next.js 16 App Router source
+│   ├── app/                        Routes, layout, server actions, api/checkout/*
+│   ├── components/                 Atomic components + inline-SVG icons
+│   ├── config/                     catalog, site, ui, messages
+│   ├── lib/                        validation, rate-limit, services (sheets, square)
+│   ├── hooks/, types/, __tests__/
+│
+├── public/assets/                  Real brand assets (logo + watercolor covers)
+├── e2e/                            Playwright smoke tests
+├── docs/apps-script/               Google Apps Script source + deployment guide
+├── scripts/lint-conventions.sh     Generic JSON-driven lint runner
+├── .claude/                        Project-level Claude Code config
+│   ├── settings.json               Hooks (lint:conventions on Edit/Write/Stop)
+│   └── conventions.json            Lintable rule set
 │
 ├── claude-config/                  ← what gets installed to ~/.claude/
 │   ├── skills/
@@ -123,34 +168,24 @@ The full toolkit supports a complete redesign cycle:
 │       ├── art-director.md         Brand / taste critic
 │       └── dev-nextjs-app.md       Full-stack Next.js / static HTML developer
 │
-├── mockups/homepage/               ← the deliverable
-│   ├── index.html                  Side-by-side viewer (open this)
-│   ├── variant-1.html              Bookstore Storefront IA
-│   ├── variant-2.html              Family Letter IA
-│   ├── variant-3.html              Catalog / Issue IA
-│   ├── variant-4.html              Live Site, Refined (closest to current)
-│   └── assets/
-│       ├── logo.png                Real logo, fetched from live site
-│       ├── book-pirate.jpg         Real cover (Pirate Flu)
-│       └── book-grizzly.jpg        Real cover (Mags & MarMar)
-│
-├── index.html                      Round-2 archive viewer (history)
-└── v1_classic_storybook/ … v8_split_magland/   Prior exploration rounds (history)
+└── mockups/homepage/               ← locked design reference
+    ├── variant-2.html              "Family Letter" — the chosen direction
+    └── assets/                     Mockup assets (mirrored to public/assets/)
 ```
 
 ---
 
 ## Common workflows
 
-### Regenerate a mockup with new copy
+### Tweak the locked design reference
 
 ```
 cd <project-folder>
 claude
-> Update mockups/homepage/variant-4.html so the hero copy reads "..." and the CTA button says "Browse Our Story"
+> Update mockups/homepage/variant-2.html so the hero copy reads "..." and the CTA button says "Browse Our Story"
 ```
 
-The `dev-nextjs-app` agent will edit the file in place and respect the locked brand.
+The `dev-nextjs-app` agent will edit the file in place and respect the locked brand. Note: the production app at `src/` is the source of truth for the live site; the mockup is only the visual reference.
 
 ### Generate a fresh design exploration for a different surface
 
@@ -165,10 +200,10 @@ The skill will:
 4. Write a scored recommendation to `mockups/pricing-page/REPORT.md`
 5. Open a side-by-side viewer
 
-### Convert a chosen variant to Next.js
+### Add a new page or surface to the production app
 
 ```
-> Use the dev-nextjs-app agent to scaffold a Next.js + TypeScript + Tailwind app from variant-4.html. Migrate design tokens, convert sections to atomic components (Hero, BookGrid, Mission, Newsletter, Footer), and wire the newsletter form to a placeholder handler.
+> Use the dev-nextjs-app agent to add a new /authors route. Use the variant-2 visual language (drop caps, signature flourishes, watercolor halos) and the existing Hero / BookRow / NewsletterForm components. JSON-LD Person schema for each author.
 ```
 
 ### Pre-launch SEO check

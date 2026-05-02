@@ -9,12 +9,21 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Node / build artifacts (in case any future tooling is added)
+# Node / build artifacts
 node_modules/
 dist/
 build/
 .next/
 .turbo/
+out/
+.swc/
+next-env.d.ts
+
+# Testing
+/coverage
+/test-results
+/playwright-report
+/playwright/.cache
 
 # Editor
 .vscode/
@@ -26,11 +35,39 @@ build/
 *.log
 npm-debug.log*
 yarn-debug.log*
+.pnpm-debug.log*
 
-# Local Claude Code session state (if anyone develops here)
+# Local Claude Code session state
 .claude/projects/
 .claude/.backup-*/
 
 # Local environment
 .env
 .env.local
+.env*.local
+.env.production
+.env.development
+
+# Credentials & secrets — belt-and-suspenders. NEVER commit these.
+# (We also scan staged content for secret patterns via scripts/check-secrets.sh.)
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+*-private.json
+*service-account*.json
+*credentials*.json
+*credentials*.yaml
+*credentials*.yml
+secrets.*
+.secrets/
+*.private.*
+*-key.json
+
+# Vercel
+.vercel
+
+# Typescript
+*.tsbuildinfo

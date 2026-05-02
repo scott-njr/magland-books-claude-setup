@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Pre-commit hook — runs the secret scanner against staged content.
+# Installed via: bash scripts/install-git-hooks.sh
+#
+# To skip in an emergency (use sparingly): git commit --no-verify
+
+set -e
+
+# Resolve repo root regardless of where git invoked the hook from
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+bash "$REPO_ROOT/scripts/check-secrets.sh" --staged
