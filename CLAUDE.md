@@ -6,7 +6,7 @@ This file is read automatically by Claude Code when working in this project. It 
 
 The user is **not a developer**. Actively protect them from committing secrets. This is a top-priority guardrail.
 
-**Treat as a secret** (never write into any tracked file): anything labeled `*_TOKEN`, `*_SECRET`, `*_KEY`, `*_PASSWORD` with a real value; access tokens; OAuth secrets; webhook signing keys; shared secrets (`APPS_SCRIPT_SHARED_SECRET`); private keys (`BEGIN PRIVATE KEY`, `.pem`, `.key`); GitHub PATs / Slack tokens / API keys for any service; **any long random-looking string the user pasted**. The Apps Script deployment URL also counts (anyone with it can post). When in doubt → treat as secret.
+**Treat as a secret** (never write into any tracked file): anything labeled `*_TOKEN`, `*_SECRET`, `*_KEY`, `*_PASSWORD` with a real value; access tokens; OAuth secrets; webhook signing keys; private keys (`BEGIN PRIVATE KEY`, `.pem`, `.key`); GitHub PATs / Slack tokens / Resend / Square / any third-party API key; **any long random-looking string the user pasted**. When in doubt → treat as secret.
 
 **Safe to commit**: `NEXT_PUBLIC_*` values (browser-exposed by design); the empty-value `.env.local.example` template.
 
@@ -35,7 +35,7 @@ Homepage redesign exploration for [maglandbooks.com](https://www.maglandbooks.co
 - *Mags & MarMar: The Mystery of the Gruffly Grizzly* — Story by Summer Nelson, illustrated by Kaitlyn Phillips, $14.99
 - *Pirate Flu (And What to Do)* — Written by Leigh Gardener, illustrated by Kaitlyn Phillips, $14.99
 
-The deliverable is four contrasting homepage layouts in `mockups/homepage/`. The brand identity is **locked** — see `PRODUCT.md` for the full thesis.
+The homepage exploration phase is **done** — variant-2 ("Family Letter") was chosen and is shipped in the production Next.js app at the repo root. Earlier exploration rounds were pruned (recoverable from git history). The brand identity is **locked** — see `PRODUCT.md` for the full thesis.
 
 ## Brand is locked — do not reinvent
 
@@ -135,9 +135,9 @@ The Next.js 16 production app now lives at the repo root alongside the mockups a
   - `src/components/icons/` — inline SVG icons (no Lucide/Heroicons/react-icons)
   - `src/config/{site,catalog,messages,ui}.ts` — single sources of truth
   - `src/lib/validation.ts`, `src/lib/rate-limit.ts` — input + abuse defenses on every server action
-  - `src/lib/services/sheets.ts` — Apps Script bridge (newsletter + contact)
+  - `src/lib/services/resend.ts` — Resend bridge (transactional contact email + newsletter audience)
 - **Forms**: every form has a honeypot + per-IP rate limit before validation. Newsletter and contact actions live in `src/app/actions.ts`.
-- **Env vars**: see `.env.local.example`. Missing Apps Script vars no-op gracefully in dev; production logs an error from the service layer.
+- **Env vars**: see `.env.local.example`. Missing Resend vars no-op gracefully in dev; production returns `resend-not-configured` from the service layer.
 - **Mockups directory** (`mockups/`) is read-only design reference and excluded from ESLint and the lint-conventions runner. Only `mockups/homepage/variant-2.html` remains — the chosen direction. Earlier exploration rounds were pruned; they're recoverable from git history if ever needed.
 
 ### Checkout (Square)

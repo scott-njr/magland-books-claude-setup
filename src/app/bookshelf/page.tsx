@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function BookshelfPage() {
   return (
-    <section className={`${ui.surface.cream} ${ui.layout.sectionPadding} px-5 sm:px-10`}>
+    <section className={`${ui.surface.cream} ${ui.layout.sectionPaddingHero} px-5 sm:px-10`}>
       <div className="mx-auto max-w-[1180px]">
         <header className="text-center mb-14 sm:mb-20">
           <div className={`${ui.text.tag} mb-3`}>the bookshelf</div>

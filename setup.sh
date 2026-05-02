@@ -124,8 +124,8 @@ echo ""
 
 if [ "${ENV_CREATED:-0}" -eq 1 ]; then
   echo -e "  ${BOLD}1. Fill in .env.local${RESET} — open the file and add real values."
-  echo -e "     ${DIM}• Apps Script (newsletter + contact):  see docs/apps-script/README.md${RESET}"
-  echo -e "     ${DIM}• Square (checkout):                  https://developer.squareup.com/apps${RESET}"
+  echo -e "     ${DIM}• Resend (newsletter + contact):       https://resend.com — verify the maglandbooks.com domain, then create an API key + Audience${RESET}"
+  echo -e "     ${DIM}• Square (checkout):                   https://developer.squareup.com/apps${RESET}"
   echo -e "     ${YELLOW}⚠️  Never paste these values into any other file. Never commit .env.local.${RESET}"
   echo ""
   echo -e "  ${BOLD}2. Start the dev server${RESET}"

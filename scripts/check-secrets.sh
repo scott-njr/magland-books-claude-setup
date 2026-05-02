@@ -189,7 +189,7 @@ if [ "$result" -ne 0 ]; then
   echo "    1. Remove it from the file. Do not just stage a deletion —"
   echo "       once a secret is in git history it is leaked even if removed."
   echo "    2. Rotate the secret immediately at the issuing service"
-  echo "       (Square dashboard, Apps Script properties, etc.)."
+  echo "       (Square dashboard, Resend dashboard, etc.)."
   echo "    3. Move the value into .env.local (which is gitignored)"
   echo "       and reference it in code via process.env.<NAME>."
   echo ""

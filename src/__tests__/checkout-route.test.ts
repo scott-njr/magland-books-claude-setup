@@ -20,7 +20,7 @@ jest.mock('@/lib/rate-limit', () => ({
   checkRateLimit: jest.fn().mockResolvedValue({ allowed: true, remaining: 9 }),
 }));
 
-// Apps Script mock from test-setup.ts is global, but this route doesn't use it.
+// The Resend mock from test-setup.ts is global, but this route doesn't use it.
 
 import { POST } from '@/app/api/checkout/create-order/route';
 import { checkRateLimit } from '@/lib/rate-limit';

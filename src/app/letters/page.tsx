@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function LettersPage() {
   return (
-    <section className={`relative overflow-hidden bg-cream bg-letter ${ui.layout.sectionPadding} px-5 sm:px-10`}>
+    <section className={`relative overflow-hidden bg-cream bg-letter ${ui.layout.sectionPaddingHero} px-5 sm:px-10`}>
       <div className="relative z-10 mx-auto max-w-[680px] text-center">
         <div className="font-script text-rose text-[clamp(2rem,3.6vw,2.4rem)] mb-6 inline-block -rotate-[1.5deg]">
           Letters from the studio

@@ -40,8 +40,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   const eventType = typeof event.type === 'string' ? event.type : 'unknown';
 
   // TODO(checkout-webhooks): wire real handlers.
-  // - On `payment.updated` (status COMPLETED): send buyer + seller confirmation
-  //   emails, log the order to the Sheet (or a Square-Orders sheet tab).
+  // - On `payment.updated` (status COMPLETED): send buyer + seller order-confirmation
+  //   emails via Resend (`src/lib/services/resend.ts`).
   // - On `order.updated`: persist order state if we ever store orders locally.
   // - On `refund.created`: notify seller, mark the order refunded.
   // For now we just observe — Square retries on non-2xx, so we always 200 once
@@ -50,7 +50,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     case 'payment.updated':
     case 'order.updated':
     case 'refund.created':
-      // Observed. Real handling is deferred to the email integration phase.
+      // Observed. Real handling is deferred — see TODO above.
       break;
     default:
       // Unknown event type — accept it, Square will only send what we

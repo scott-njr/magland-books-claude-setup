@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 // Lightweight smoke tests — no form submissions, no network mutations.
 // `test:e2e:live` env flag (E2E_SUBMIT_FORM=1) is reserved for integration
-// tests that hit the real Apps Script endpoint.
+// tests that hit the real Resend endpoints.
 
 test('home page renders the family letter and a book row', async ({ page }) => {
   await page.goto('/');

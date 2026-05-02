@@ -1,7 +1,7 @@
 'use server';
 
 import { checkRateLimit } from '@/lib/rate-limit';
-import { appendToSheet } from '@/lib/services/sheets';
+import { addToNewsletterAudience, sendContactEmail } from '@/lib/services/resend';
 import {
   validateEmail,
   validateMessage,
@@ -36,7 +36,6 @@ export async function subscribeNewsletter(
 
   const emailField = formData.get('email');
   const nameField = formData.get('name');
-  const sourceField = formData.get('source');
 
   const email = validateEmail(emailField);
   if (!email.valid) {
@@ -48,11 +47,9 @@ export async function subscribeNewsletter(
     return { success: false, message: name.error };
   }
 
-  const result = await appendToSheet({
-    tab: 'newsletter',
+  const result = await addToNewsletterAudience({
     email: email.value,
-    name: name.value,
-    source: typeof sourceField === 'string' ? sourceField.slice(0, 60) : 'unknown',
+    name: name.value || undefined,
   });
 
   if (!result.ok) {
@@ -97,12 +94,10 @@ export async function submitContact(
     return { success: false, message: message.error };
   }
 
-  const result = await appendToSheet({
-    tab: 'contact',
-    email: email.value,
+  const result = await sendContactEmail({
     name: name.value,
+    email: email.value,
     message: message.value,
-    source: 'write-to-us',
   });
 
   if (!result.ok) {

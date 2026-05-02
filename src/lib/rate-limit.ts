@@ -9,8 +9,8 @@ type RateLimitResult = {
 };
 
 // In-memory bucket: action+ip → list of millisecond timestamps inside the window.
-// This is fine for a single-region, single-process Vercel deployment — for multi-region
-// we'd swap in Upstash or similar. Documented in the integration phase.
+// Fine for a single-region, single-process Vercel deployment — swap in Upstash
+// (or a similar shared store) if we ever scale to multi-region.
 const buckets = new Map<string, number[]>();
 
 async function getClientIp(): Promise<string> {

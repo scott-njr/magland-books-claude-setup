@@ -14,7 +14,7 @@ If you only want to view the homepage mockups, see [`README.md`](./README.md). T
 - **Tests**: Jest 30 + React Testing Library, Playwright 1.59 (desktop + mobile projects)
 - **Lint**: ESLint 9 (flat config, `eslint-config-next/core-web-vitals` + `typescript`) plus a project-specific rule set in `.claude/conventions.json`
 - **Payments**: Square Web Payments SDK (client) + Square Node SDK (server)
-- **Newsletter / contact**: Google Apps Script web app, POSTed to from server actions, appends to a Google Sheet
+- **Email**: Resend — transactional send for the contact form (To: Summer, Reply-To: visitor) and Audiences for newsletter signups (with managed unsubscribe)
 - **Hosting**: designed for Vercel
 - **Brand**: locked, pulled directly from `mockups/homepage/variant-2.html`. Do not introduce new colors or fonts. See `PRODUCT.md`.
 
@@ -24,7 +24,7 @@ If you only want to view the homepage mockups, see [`README.md`](./README.md). T
 
 - Node 20.x or newer (Volta or `nvm use 20` is fine)
 - A clone of this repo
-- A Google account that owns the Sheet that will receive newsletter + contact submissions
+- A Resend account (free tier is plenty) with `maglandbooks.com` verified as a sending domain
 - A Square Developer account (sandbox is free; production is your call)
 - Optional but recommended: Claude Code (`brew install anthropic/tap/claude-code`) — picks up the agents and skills in `claude-config/` once you run `./install.sh`
 
@@ -64,9 +64,8 @@ Without filled-in env vars, forms render and no-op gracefully in dev. Checkout s
 If you can't tell, treat it as one. The obvious ones:
 
 - Anything labeled `*_TOKEN`, `*_SECRET`, `*_KEY`, `*_PASSWORD` with a non-empty value
-- API keys from Square (`SQUARE_ACCESS_TOKEN`), Resend, Anthropic, OpenAI, AWS, etc.
+- API keys from Square (`SQUARE_ACCESS_TOKEN`), Resend (`RESEND_API_KEY`), Anthropic, OpenAI, AWS, etc.
 - Webhook signing keys (`SQUARE_WEBHOOK_SIGNATURE_KEY`, etc.)
-- The Apps Script deployment URL (`APPS_SCRIPT_NEWSLETTER_URL`) — anyone with this URL can post fake submissions to your sheet, so treat it as a secret too
 - Anything containing `BEGIN PRIVATE KEY`
 - Any long random-looking string Scott or a service handed you
 
@@ -79,13 +78,13 @@ What is **not** a secret: anything starting with `NEXT_PUBLIC_*`. Those are publ
 | `.env.local` | Real values. Gitignored. Stays on your machine. **Never edited by Claude — only by you.** |
 | `.env.local.example` | The template — variable names with empty values. Committed. The contract for what env vars exist. |
 | Vercel project settings → Environment Variables | Production and Preview values. Set in the Vercel dashboard, not in code. |
-| Square dashboard / Apps Script Script Properties | Service-side secrets like the Square access token (Square holds it on its end too) and the Apps Script shared secret. |
+| Square dashboard / Resend dashboard | Service-side secrets like the Square access token and the Resend API key (each provider holds them on its end too). |
 
 ### What to do if you accidentally commit a secret
 
 This is recoverable, but you must act fast and in this order:
 
-1. **Rotate the secret immediately** at the issuing service (Square dashboard → regenerate token; Apps Script → change Script Property; etc.). Removing it from a later commit does not unleak it.
+1. **Rotate the secret immediately** at the issuing service (Square dashboard → regenerate token; Resend dashboard → revoke and regenerate API key; etc.). Removing it from a later commit does not unleak it.
 2. **Update `.env.local`** (and Vercel, and any deployed environment) with the new value.
 3. **Tell Scott** so he can verify nothing fraudulent happened in the window the secret was exposed.
 4. *Optional:* rewrite history with `git filter-repo` or BFG to scrub the secret from past commits. Not strictly necessary once the secret is rotated, but cleaner.
@@ -110,18 +109,26 @@ Copy `.env.local.example` to `.env.local` and fill in:
 | Variable | Where it goes | Why it's needed |
 |---|---|---|
 | `NEXT_PUBLIC_APP_URL` | client + server | Canonical URL for sitemap / OG / webhook URL construction. `http://localhost:3000` in dev. |
-| `APPS_SCRIPT_NEWSLETTER_URL` | server only | Apps Script web-app deployment URL — newsletter submissions POST here. |
-| `APPS_SCRIPT_CONTACT_URL` | server only | Same as above for the contact form. Can be the same Apps Script with different `tab` payload. |
-| `APPS_SCRIPT_SHARED_SECRET` | server only | Shared secret the Apps Script verifies before appending a row. Rotate when leaked. |
+| `RESEND_API_KEY` | server only | Resend API key. Used for both the contact-form transactional send and newsletter Audience adds. Rotate at resend.com when leaked. |
+| `RESEND_NEWSLETTER_AUDIENCE_ID` | server only | UUID of the Resend Audience that newsletter signups are added to. Find it in the Resend dashboard under Audiences. |
 | `NEXT_PUBLIC_SQUARE_APPLICATION_ID` | client + server | Square app ID. Sandbox values start with `sandbox-sq0idb-`, production with `sq0idp-`. |
 | `NEXT_PUBLIC_SQUARE_LOCATION_ID` | client + server | The Square location that owns the catalog and receives the order. |
 | `SQUARE_ACCESS_TOKEN` | server only | OAuth access token for Orders + Payments API. Never expose. |
 | `SQUARE_ENVIRONMENT` | server only | `sandbox` or `production`. |
 | `SQUARE_WEBHOOK_SIGNATURE_KEY` | server only | HMAC key used by `verifyWebhookSignature` to authenticate Square webhook deliveries. |
 
-### Setting up the Google Apps Script bridge
+### Setting up Resend
 
-Step-by-step in [`docs/apps-script/README.md`](./docs/apps-script/README.md). You'll deploy a small Apps Script (one file, `Code.gs`) as a web app, copy its URL into `.env.local`, and rotate the shared secret.
+1. Sign up at https://resend.com (free tier: 100 emails/day, 3,000/month — far more than this site will ever use).
+2. **Verify the domain** — Domains → Add Domain → enter `maglandbooks.com`. Resend gives you 4 DNS records (SPF, DKIM ×2, DMARC). Add them at the domain's DNS host. Wait for verification (minutes to a few hours).
+3. **Create an Audience** for newsletter signups — Audiences → Create Audience → name it (e.g. "Newsletter"). Copy its UUID into `RESEND_NEWSLETTER_AUDIENCE_ID`.
+4. **Generate an API key** — API Keys → Create API Key → "Full Access" scoped to this project. Copy into `RESEND_API_KEY`.
+5. Confirm the addresses in `src/config/site.ts`:
+   - `CONTACT_FROM_EMAIL` — must match a verified sender on the verified domain (default: `Magland Books <hello@maglandbooks.com>`).
+   - `CONTACT_NOTIFY_EMAIL` — where contact-form submissions are delivered (default: `summer@maglandbooks.com`). This must be a real, working mailbox the team can read.
+6. **Pre-verification testing** (optional): if you want to send before the DNS propagates, temporarily change `CONTACT_FROM_EMAIL` to `'Magland Books <onboarding@resend.dev>'`. Switch back once the domain shows verified.
+
+The contact form's reply-to is the visitor's email, so hitting Reply in Gmail responds directly to them. Newsletter signups go straight to the Audience and inherit Resend's managed unsubscribe / List-Unsubscribe headers.
 
 ### Setting up Square
 
@@ -194,7 +201,7 @@ src/
 │   ├── validation.ts               # Custom validators (no Zod): name, email, message, address
 │   ├── rate-limit.ts               # In-memory per-IP bucket rate limiter
 │   └── services/
-│       ├── sheets.ts               # Apps Script bridge for newsletter + contact
+│       ├── resend.ts               # Resend bridge — contact-form transactional + newsletter audience
 │       └── square.ts               # Orders + Payments + webhook signature verification
 │
 ├── hooks/useCart.ts                # localStorage cart via useSyncExternalStore
@@ -202,7 +209,6 @@ src/
 └── __tests__/                      # Jest unit tests
 
 e2e/                                # Playwright smoke tests
-docs/apps-script/                   # Apps Script source code + deployment guide
 mockups/                            # Design source of truth (variant-2.html is the locked direction)
 public/assets/                      # Real brand assets (logo, watercolor covers)
 .claude/                            # Project-level Claude Code config (settings + conventions)
@@ -227,7 +233,7 @@ These are enforced by `.claude/conventions.json` (regex lint rules) and by the p
 Additional prose rules (not regex-enforceable but still required):
 
 - **One component per file**, named export, file name matches component name.
-- **Service layer enforced**: any external HTTP call (Apps Script, Square, anything else) goes through `src/lib/services/*` — never directly from a route or component.
+- **Service layer enforced**: any external HTTP call (Resend, Square, anything else) goes through `src/lib/services/*` — never directly from a route or component.
 - **Every form**: honeypot field + per-IP rate limit + custom validation in this order. See `src/app/actions.ts` for the canonical pattern.
 - **Server is the price authority**: never trust client-sent prices. The checkout route reconstructs line items from `BOOKS` in `src/config/catalog.ts` using only the slug + quantity from the client.
 - **`next/image` for all images**, with descriptive alt text. Cover images include illustrator credit.
@@ -294,17 +300,18 @@ Currently the price authority is `BOOKS` in `src/config/catalog.ts`. To migrate 
 
 1. Push to GitHub.
 2. Import the repo at https://vercel.com — framework preset: Next.js.
-3. Set environment variables (paste from `.env.local`, but use **production** Apps Script URL and **production** Square credentials when you cut over).
-4. Trigger a deploy. Watch the build log; quality gates already ran via the GitHub Actions or pre-push hook (TODO if you want a CI pipeline).
+3. Set environment variables (paste from `.env.local`, but use the **production** Resend API key and **production** Square credentials when you cut over).
+4. Trigger a deploy. Watch the build log; quality gates already ran via GitHub Actions (`.github/workflows/ci.yml`) on the push.
 5. Once a preview URL exists, register the webhook URL in Square and rotate `SQUARE_WEBHOOK_SIGNATURE_KEY`.
 
 ### Pre-launch checklist
 
 - [ ] All env vars set in Vercel for both Preview and Production environments
 - [ ] Webhook URL registered in Square dashboard, signature key rotated
-- [ ] Apps Script deployed as web app, URL in env vars, shared secret rotated
+- [ ] Resend domain (`maglandbooks.com`) verified, API key + Audience ID set in Vercel
 - [ ] Sandbox checkout tested end-to-end (test card `4111 1111 1111 1111`)
-- [ ] Newsletter + contact tested end-to-end (rows appear in the Sheet)
+- [ ] Contact form tested end-to-end (email lands at `summer@maglandbooks.com` with reply-to set to the visitor)
+- [ ] Newsletter signup tested end-to-end (subscriber appears in the Resend Audience)
 - [ ] `npm run build` passes locally
 - [ ] `/seo-audit` clean against the staging URL (Lighthouse ≥ 95 on all four scores)
 - [ ] DNS plan agreed with the family — when do we cut from Wix to Vercel? Have a rollback step.
@@ -344,7 +351,7 @@ When a PR touches anything in `src/lib/services/*`, `src/app/api/*`, `src/lib/va
 1. `npm run lint && npm run lint:conventions && npm test && npm run build` — all four pass
 2. `/security-review` from inside Claude Code — address every flagged issue or document why it's accepted
 3. If touching the Square flow: re-run a sandbox checkout end-to-end before merging
-4. If touching the Apps Script bridge: post a test row to the sheet to confirm the wiring
+4. If touching the Resend bridge: submit a test contact message and a test newsletter signup before merging — confirm the email lands and the subscriber appears in the Audience
 
 ---
 

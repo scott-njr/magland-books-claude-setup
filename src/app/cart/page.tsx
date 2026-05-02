@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <section className={`bg-cream ${ui.layout.sectionPadding} px-5 sm:px-10`}>
+    <section className={`bg-cream ${ui.layout.sectionPaddingHero} px-5 sm:px-10`}>
       <div className="mx-auto max-w-[820px]">
         <div className={`${ui.text.tag} mb-3`}>your bag</div>
         <h1 className={`${ui.text.h2} mb-10`}>

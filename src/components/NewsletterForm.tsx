@@ -8,7 +8,7 @@ import { ui } from '@/config/ui';
 import { INITIAL_FORM_STATE } from '@/types';
 
 type Props = {
-  /** Used as the "source" field in the spreadsheet so we can tell where signups originate. */
+  /** Disambiguates form input ids when multiple newsletter forms render on the same page. */
   source?: string;
   /** Caveat-script tag rendered above the heading. */
   tag?: string;
@@ -55,8 +55,6 @@ export function NewsletterForm({
             aria-hidden="true"
             className={ui.honeypot}
           />
-          <input type="hidden" name="source" value={source} />
-
           <div className="flex items-center gap-0 max-w-[460px] mx-auto border-b-2 border-teal pb-1">
             <label htmlFor={`newsletter-email-${source}`} className="sr-only">
               Email address

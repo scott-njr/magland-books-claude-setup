@@ -18,7 +18,8 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
   });
 }
 
-// Stub the Sheets service so server actions don't try real network calls in unit tests.
-jest.mock('@/lib/services/sheets', () => ({
-  appendToSheet: jest.fn().mockResolvedValue({ ok: true }),
+// Stub the Resend service so server actions don't try real network calls in unit tests.
+jest.mock('@/lib/services/resend', () => ({
+  sendContactEmail: jest.fn().mockResolvedValue({ ok: true }),
+  addToNewsletterAudience: jest.fn().mockResolvedValue({ ok: true }),
 }));

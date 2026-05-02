@@ -25,6 +25,9 @@ next-env.d.ts
 /playwright-report
 /playwright/.cache
 
+# Local audit artifacts (mobile screenshots, ad-hoc captures)
+/mobile-audit
+
 # Editor
 .vscode/
 .idea/

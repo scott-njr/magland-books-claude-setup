@@ -57,7 +57,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* No global scroll-behavior: smooth — it interferes with Next.js's instant
+     scroll-to-top on route navigation and leaves the new page mid-scroll.
+     Use scroll-margin-top on anchor targets if you need a smooth in-page jump. */
   background: var(--color-cream);
 }
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function StorePolicyPage() {
   return (
-    <article className={`bg-cream ${ui.layout.sectionPadding} px-5 sm:px-10`}>
+    <article className={`bg-cream ${ui.layout.sectionPaddingHero} px-5 sm:px-10`}>
       <div className="mx-auto max-w-[720px]">
         <div className={`${ui.text.tag} mb-3`}>fine print</div>
         <h1 className={`${ui.text.h2} mb-10`}>Store Policy</h1>

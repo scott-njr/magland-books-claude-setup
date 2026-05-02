@@ -14,7 +14,7 @@ export const ui = {
     booksContainer: 'mx-auto max-w-[1180px] px-5 sm:px-10',
     sectionPadding: 'py-16 sm:py-24',
     sectionPaddingTight: 'py-12 sm:py-16',
-    sectionPaddingHero: 'pt-12 pb-20 sm:pt-14 sm:pb-24',
+    sectionPaddingHero: 'pt-10 pb-20 sm:pt-12 sm:pb-24',
   },
 
   surface: {

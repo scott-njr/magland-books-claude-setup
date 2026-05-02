@@ -43,7 +43,7 @@ bash setup.sh                       # macOS / Linux  — re-runs everything; ide
 - **Pre-commit hook**: re-installs the hook (no-op if already current).
 - **`.env.local`**: leaves your existing file alone — never overwritten.
 
-For env var setup, integrations (Square + Google Apps Script), deploying to Vercel, secret hygiene, and contributing conventions, read [`DEVELOPER.md`](./DEVELOPER.md).
+For env var setup, integrations (Square + Resend), deploying to Vercel, secret hygiene, and contributing conventions, read [`DEVELOPER.md`](./DEVELOPER.md).
 
 ---
 
@@ -141,18 +141,17 @@ The full toolkit supports a complete redesign cycle:
 ├── package.json, tsconfig.json     Production Next.js app — see DEVELOPER.md
 ├── next.config.ts, eslint.config.mjs
 ├── jest.config.ts, playwright.config.ts, postcss.config.js
-├── .env.local.example              Env vars (Apps Script + Square)
+├── .env.local.example              Env vars (Resend + Square)
 │
 ├── src/                            Next.js 16 App Router source
 │   ├── app/                        Routes, layout, server actions, api/checkout/*
 │   ├── components/                 Atomic components + inline-SVG icons
 │   ├── config/                     catalog, site, ui, messages
-│   ├── lib/                        validation, rate-limit, services (sheets, square)
+│   ├── lib/                        validation, rate-limit, services (resend, square)
 │   ├── hooks/, types/, __tests__/
 │
 ├── public/assets/                  Real brand assets (logo + watercolor covers)
 ├── e2e/                            Playwright smoke tests
-├── docs/apps-script/               Google Apps Script source + deployment guide
 ├── scripts/lint-conventions.sh     Generic JSON-driven lint runner
 ├── .claude/                        Project-level Claude Code config
 │   ├── settings.json               Hooks (lint:conventions on Edit/Write/Stop)

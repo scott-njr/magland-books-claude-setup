@@ -48,7 +48,7 @@ export function Footer() {
   return (
     <footer className="bg-teal-deep text-blush mt-auto">
       <div className="mx-auto max-w-[1240px] px-5 sm:px-10 pt-16 sm:pt-20 pb-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10 lg:gap-14 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-10 mb-10">
           <div>
             <div className="inline-block bg-paper rounded-md px-4 py-3 mb-4">
               <Image

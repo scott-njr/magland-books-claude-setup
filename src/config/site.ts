@@ -33,6 +33,14 @@ export const SOCIAL = {
 // Contact
 export const CONTACT_EMAIL = 'hello@maglandbooks.com';
 
+// Where contact-form ("Drop us a line") submissions are sent.
+// Real human reads every one — see /write-to-us hero copy.
+export const CONTACT_NOTIFY_EMAIL = 'summer@maglandbooks.com';
+
+// From: header on outgoing transactional mail (contact-form notifications).
+// Must match a verified Resend sender identity on the maglandbooks.com domain.
+export const CONTACT_FROM_EMAIL = 'Magland Books <hello@maglandbooks.com>';
+
 // Routes — surfaced for nav, footer, sitemap
 export const ROUTES = {
   home: '/',

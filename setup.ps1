@@ -117,8 +117,8 @@ Write-Host ""
 
 if ($envCreated) {
     Write-Host "  1. Fill in .env.local - open the file and add real values."
-    Write-Host "       Apps Script (newsletter + contact):  see docs\apps-script\README.md"
-    Write-Host "       Square (checkout):                  https://developer.squareup.com/apps"
+    Write-Host "       Resend (newsletter + contact):       https://resend.com - verify the maglandbooks.com domain, then create an API key + Audience"
+    Write-Host "       Square (checkout):                   https://developer.squareup.com/apps"
     Write-Host "  Never paste these values into any other file. Never commit .env.local." -ForegroundColor Yellow
     Write-Host ""
     Write-Host "  2. Start the dev server"
