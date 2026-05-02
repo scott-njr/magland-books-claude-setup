@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Script from 'next/script';
 import { useCart } from '@/hooks/useCart';
 import { CHECKOUT_COPY } from '@/config/messages';
-import { ROUTES } from '@/config/site';
+import { CONTACT_EMAIL, ROUTES } from '@/config/site';
 import { ui } from '@/config/ui';
 
 // ─── Square Web Payments SDK (loaded via CDN) types ─────────────────────────
@@ -68,8 +68,7 @@ const SQUARE_APP_ID = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID ?? '';
 const SQUARE_LOCATION_ID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID ?? '';
 const SQUARE_CONFIGURED = SQUARE_APP_ID.length > 0 && SQUARE_LOCATION_ID.length > 0;
 
-const NOT_CONFIGURED_MESSAGE =
-  'Checkout is not yet configured. Please write to us at hello@maglandbooks.com to place your order.';
+const NOT_CONFIGURED_MESSAGE = `Checkout is not yet configured. Please write to us at ${CONTACT_EMAIL} to place your order.`;
 
 export function CheckoutForm() {
   const router = useRouter();

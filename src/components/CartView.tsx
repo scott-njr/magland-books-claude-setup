@@ -13,10 +13,9 @@ export function CartView() {
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-10">
-        <div className="font-script text-rose text-[1.7rem] mb-2">your bag is empty</div>
-        <p className="font-body text-warm font-light mb-7 max-w-[420px] mx-auto">
-          {CART_COPY.empty} Find a book on the bookshelf and we&apos;ll put it on the way to you.
+      <div className="text-center py-6">
+        <p className="font-body text-warm font-light text-[1.05rem] leading-[1.65] mb-7 max-w-[420px] mx-auto">
+          Nothing here yet. Find a book on the bookshelf and we&apos;ll put it on the way to you.
         </p>
         <Link
           href={ROUTES.bookshelf}

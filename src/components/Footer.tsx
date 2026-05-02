@@ -11,7 +11,6 @@ const FOOTER_COLUMNS = [
       { label: 'All Books', href: ROUTES.bookshelf },
       { label: 'Pirate Flu', href: ROUTES.book('pirate-flu') },
       { label: 'Mags & MarMar', href: ROUTES.book('mags-marmar') },
-      { label: 'Coming Soon', href: ROUTES.bookshelf },
     ],
   },
   {

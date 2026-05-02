@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { BookCard } from '@/components/BookCard';
 import { BOOKS } from '@/config/catalog';
 import { ui } from '@/config/ui';
@@ -26,28 +25,12 @@ export default function BookshelfPage() {
           </p>
         </header>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 list-none">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 list-none max-w-[760px] mx-auto">
           {BOOKS.map((book) => (
             <li key={book.id}>
               <BookCard book={book} />
             </li>
           ))}
-          <li className="flex flex-col items-center justify-center text-center rounded-md border border-dashed border-rose/40 bg-blush/30 p-10 min-h-[420px]">
-            <div className="font-script text-rose text-[1.7rem] mb-3">more on the way</div>
-            <h3 className="font-display font-semibold text-teal-deep text-xl mb-2">
-              Coming soon
-            </h3>
-            <p className="font-body text-taupe font-light max-w-[260px]">
-              We&apos;re writing the next one. Subscribe and we&apos;ll let you know when it&apos;s
-              ready.
-            </p>
-            <Link
-              href="/#newsletter"
-              className="mt-5 font-display italic text-teal hover:text-teal-deep underline-offset-4 hover:underline"
-            >
-              Join the family →
-            </Link>
-          </li>
         </ul>
       </div>
     </section>

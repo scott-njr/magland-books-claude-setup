@@ -1,5 +1,7 @@
 // User-facing copy strings — keep them here so they're swappable without touching components.
 
+import { CONTACT_EMAIL } from './site';
+
 export const SUCCESS = {
   newsletterSubscribed:
     "Thank you. We'll write when we have something worth your inbox.",
@@ -34,7 +36,6 @@ export const VALIDATION = {
 // Cart microcopy
 export const CART_COPY = {
   shipsFromIdaho: 'Ships in 1–2 business days from our home in Idaho',
-  empty: 'Your bag is empty — for now.',
   subtotal: 'Subtotal',
   shipping: 'Shipping is calculated at checkout.',
   tax: 'Tax calculated at checkout',
@@ -55,8 +56,7 @@ export const CHECKOUT_COPY = {
   emptyBagBody: 'Find a book on the bookshelf and we\'ll put it on the way to you.',
   cardError:
     'We couldn\'t read your card. Please double-check the details and try again.',
-  orderError:
-    'Something went wrong placing your order. Please try again, or write to us at hello@maglandbooks.com.',
+  orderError: `Something went wrong placing your order. Please try again, or write to us at ${CONTACT_EMAIL}.`,
   paymentError:
     'Your card was declined or the payment couldn\'t be completed. Please try again or use another card.',
 } as const;
